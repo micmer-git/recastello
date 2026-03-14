@@ -1,0 +1,263 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, BOARD, ATHLETES, SPONSORS, FEATURED_EVENT } from '../data/site.js';
+---
+
+<BaseLayout
+  title="La Recastello — Corsa in Montagna dal 1952"
+  description="ASD La Recastello, societa di corsa in montagna fondata nel 1952 a Gazzaniga, Valle Seriana. Atleti, gare, storia e passione per la montagna bergamasca."
+>
+
+  <!-- ========== HERO ========== -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-brand-dark" id="hero">
+    <!-- Background gradient simulating mountain landscape -->
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/80 to-brand-green/30"></div>
+    <!-- Geometric mountain shapes -->
+    <div class="absolute bottom-0 left-0 right-0 h-[40vh]">
+      <svg viewBox="0 0 1440 400" preserveAspectRatio="none" class="w-full h-full" aria-hidden="true">
+        <polygon points="0,400 200,120 380,280 520,80 720,260 900,60 1100,200 1280,100 1440,220 1440,400" fill="#00A651" opacity="0.15"/>
+        <polygon points="0,400 150,200 300,320 480,140 680,300 850,120 1050,280 1200,160 1440,280 1440,400" fill="#00A651" opacity="0.1"/>
+        <polygon points="0,400 100,300 250,350 400,250 600,340 800,200 1000,320 1200,240 1440,340 1440,400" fill="#F2EFE9" opacity="0.05"/>
+      </svg>
+    </div>
+    <!-- Mountain silhouette at bottom -->
+    <div class="absolute bottom-0 left-0 right-0 z-10">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full h-20 md:h-28" aria-hidden="true">
+        <path d="M0,120 L0,80 L80,50 L160,70 L280,20 L400,60 L520,10 L640,55 L760,25 L880,65 L1000,15 L1120,50 L1240,30 L1360,55 L1440,40 L1440,120 Z" fill="#F2EFE9"/>
+      </svg>
+    </div>
+
+    <div class="relative z-20 text-center px-5 max-w-4xl mx-auto">
+      <p class="text-brand-green text-xs font-bold tracking-[0.25em] uppercase mb-6 reveal">Gazzaniga, Valle Seriana — dal 1952</p>
+      <h1 class="font-cursive text-white text-[clamp(4rem,14vw,10rem)] leading-[0.85] mb-4 reveal reveal-delay-1" style="text-shadow: 0 4px 30px rgba(0,0,0,0.4);">
+        La Recastello
+      </h1>
+      <p class="font-display text-brand-green text-[clamp(0.9rem,2.5vw,1.6rem)] tracking-[0.3em] uppercase font-bold mb-10 reveal reveal-delay-2">
+        Corsa in Montagna
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center reveal reveal-delay-3">
+        <a href="#evento" class="inline-flex items-center gap-2 px-7 py-3 bg-brand-green text-white font-bold text-sm tracking-wider uppercase border-2 border-brand-green hover:bg-transparent hover:text-brand-green transition-all">
+          Prossima gara
+        </a>
+        <a href="#societa" class="inline-flex items-center gap-2 px-7 py-3 bg-transparent text-white font-bold text-sm tracking-wider uppercase border-2 border-white/40 hover:border-white hover:bg-white/10 transition-all">
+          La Societa
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MARQUEE ========== -->
+  <div class="bg-brand-green h-14 overflow-hidden flex items-center">
+    <div class="marquee-track">
+      {[...Array(8)].map(() => (
+        <span class="flex-shrink-0 text-white font-display text-lg font-bold tracking-wider pr-8">
+          CORSA IN MONTAGNA &bull; TRAIL RUNNING &bull; SKYRACE &bull; DAL 1952 &bull;
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <!-- ========== FEATURED EVENT ========== -->
+  <section class="py-20 md:py-28 px-5" id="evento">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-brand-green text-xs font-bold tracking-[0.2em] uppercase mb-3 reveal">Prossimo appuntamento</p>
+          <h2 class="font-display text-[clamp(2rem,5vw,3.5rem)] font-bold text-brand-dark leading-tight mb-6 reveal reveal-delay-1">
+            {FEATURED_EVENT.name}
+          </h2>
+          <p class="text-brand-dark/70 text-lg leading-relaxed mb-8 reveal reveal-delay-2">
+            {FEATURED_EVENT.description}
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8 reveal reveal-delay-3">
+            <div class="bg-white px-5 py-3 border-2 border-brand-dark shadow-[4px_4px_0_#1A1A1A]">
+              <span class="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-brand-green">Data</span>
+              <span class="font-display text-lg font-bold">{FEATURED_EVENT.date}</span>
+            </div>
+            <div class="bg-white px-5 py-3 border-2 border-brand-dark shadow-[4px_4px_0_#1A1A1A]">
+              <span class="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-brand-green">Distanza</span>
+              <span class="font-display text-lg font-bold">{FEATURED_EVENT.distance}</span>
+            </div>
+            <div class="bg-white px-5 py-3 border-2 border-brand-dark shadow-[4px_4px_0_#1A1A1A]">
+              <span class="block text-[0.65rem] font-bold tracking-[0.15em] uppercase text-brand-green">Dislivello</span>
+              <span class="font-display text-lg font-bold">{FEATURED_EVENT.elevation}</span>
+            </div>
+          </div>
+          <p class="text-sm text-brand-dark/50 font-medium reveal reveal-delay-4">{FEATURED_EVENT.registration}</p>
+        </div>
+
+        <!-- Event visual -->
+        <div class="relative reveal reveal-delay-2">
+          <div class="bg-brand-green/10 border-2 border-brand-green/30 aspect-[4/3] flex items-center justify-center overflow-hidden">
+            <svg viewBox="0 0 400 300" class="w-full h-full" aria-hidden="true">
+              <rect width="400" height="300" fill="#F2EFE9"/>
+              <!-- Stylized mountain scene -->
+              <polygon points="0,300 60,140 120,200 200,80 280,180 340,100 400,160 400,300" fill="#00A651" opacity="0.2"/>
+              <polygon points="0,300 80,180 150,240 240,120 320,220 400,150 400,300" fill="#00A651" opacity="0.15"/>
+              <polygon points="0,300 100,230 180,260 260,200 340,250 400,220 400,300" fill="#00A651" opacity="0.1"/>
+              <!-- Runner silhouette hint -->
+              <circle cx="200" cy="130" r="40" fill="#00A651" opacity="0.12"/>
+              <text x="200" y="135" text-anchor="middle" font-family="Oswald" font-size="14" font-weight="700" fill="#00A651" opacity="0.5">25 APR</text>
+            </svg>
+          </div>
+          <div class="absolute -bottom-3 -right-3 bg-brand-dark text-white px-5 py-2 font-display text-sm font-bold tracking-wider">
+            Monte Poieto — 1360m
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BOARD OF DIRECTORS ========== -->
+  <section class="py-20 md:py-28 px-5 bg-brand-dark text-white" id="societa">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="text-brand-green text-xs font-bold tracking-[0.2em] uppercase mb-3 reveal">La Societa</p>
+        <h2 class="font-display text-[clamp(2rem,5vw,3rem)] font-bold leading-tight mb-4 reveal reveal-delay-1">
+          Consiglio Direttivo
+        </h2>
+        <p class="text-white/60 max-w-xl mx-auto reveal reveal-delay-2">
+          Settant'anni di passione per la corsa in montagna, una tradizione che si rinnova di generazione in generazione nella Valle Seriana.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        {BOARD.map((member, i) => (
+          <div class={`bg-white/5 border border-white/10 p-5 text-center hover:bg-white/10 transition-colors reveal reveal-delay-${Math.min(i + 1, 4)}`}>
+            <div class="w-14 h-14 bg-brand-green/20 rounded-full flex items-center justify-center mx-auto mb-3">
+              <span class="font-display text-brand-green font-bold text-lg">{member.name.charAt(0)}</span>
+            </div>
+            <h3 class="font-bold text-sm text-white mb-1">{member.name}</h3>
+            <p class="text-brand-green text-[0.7rem] font-bold tracking-wider uppercase">{member.role}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Timeline -->
+      <div class="mt-20 max-w-3xl mx-auto">
+        <h3 class="font-display text-xl font-bold text-brand-green mb-8 text-center reveal">Dalla valle alle vette, dal 1952</h3>
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+          <div class="reveal reveal-delay-1">
+            <span class="font-display text-4xl font-bold text-brand-green">1952</span>
+            <p class="text-white/60 text-sm mt-2">Fondazione a Gazzaniga. Un gruppo di appassionati della montagna decide di gareggiare.</p>
+          </div>
+          <div class="reveal reveal-delay-2">
+            <span class="font-display text-4xl font-bold text-brand-green">70+</span>
+            <p class="text-white/60 text-sm mt-2">Anni di attivita ininterrotta, con centinaia di atleti formati nel vivaio giovanile.</p>
+          </div>
+          <div class="reveal reveal-delay-3">
+            <span class="font-display text-4xl font-bold text-brand-green">30+</span>
+            <p class="text-white/60 text-sm mt-2">Titoli italiani conquistati tra individuali, staffette e campionati di societa.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ATHLETES ========== -->
+  <section class="py-20 md:py-28 px-5" id="atleti">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="text-brand-green text-xs font-bold tracking-[0.2em] uppercase mb-3 reveal">Il Gruppo</p>
+        <h2 class="font-display text-[clamp(2rem,5vw,3rem)] font-bold text-brand-dark leading-tight mb-4 reveal reveal-delay-1">
+          I Nostri Atleti
+        </h2>
+        <p class="text-brand-dark/60 max-w-xl mx-auto reveal reveal-delay-2">
+          Dalle categorie giovanili alla maglia della nazionale. Talenti cresciuti sulle montagne orobiche.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {ATHLETES.map((athlete, i) => (
+          <div class={`group bg-white border-2 border-brand-dark shadow-[5px_5px_0_#1A1A1A] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[2px_2px_0_#1A1A1A] transition-all overflow-hidden reveal reveal-delay-${Math.min(i + 1, 4)}`}>
+            <!-- Athlete avatar placeholder -->
+            <div class="h-48 bg-gradient-to-br from-brand-green/20 to-brand-green/5 flex items-center justify-center relative">
+              <span class="font-cursive text-6xl text-brand-green/30">{athlete.name.charAt(0)}</span>
+              <div class="absolute top-3 right-3 bg-brand-green text-white text-[0.6rem] font-bold tracking-wider uppercase px-2 py-1">
+                {athlete.specialty}
+              </div>
+            </div>
+            <div class="p-5">
+              <h3 class="font-display text-lg font-bold text-brand-dark mb-1">{athlete.name}</h3>
+              <p class="text-sm text-brand-dark/60 leading-relaxed">{athlete.palmares}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SPONSORS ========== -->
+  <section class="py-16 md:py-20 px-5 bg-brand-cream" id="sponsor">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-brand-green text-xs font-bold tracking-[0.2em] uppercase mb-3 reveal">Insieme</p>
+        <h2 class="font-display text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-brand-dark leading-tight reveal reveal-delay-1">
+          Sponsor e Partner
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+        {SPONSORS.map((sponsor, i) => (
+          <div class={`bg-white border border-brand-dark/10 px-5 py-6 text-center hover:border-brand-green/40 transition-colors reveal reveal-delay-${Math.min(i + 1, 4)}`}>
+            <span class={`block text-[0.6rem] font-bold tracking-[0.15em] uppercase mb-2 ${sponsor.tier === 'main' ? 'text-brand-green' : sponsor.tier === 'technical' ? 'text-amber-600' : 'text-brand-dark/40'}`}>
+              {sponsor.tier === 'main' ? 'Main Sponsor' : sponsor.tier === 'technical' ? 'Partner Tecnico' : 'Supporter'}
+            </span>
+            <span class="font-display text-sm font-bold text-brand-dark">{sponsor.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TRANSPARENCY / DOCUMENTS ========== -->
+  <section class="py-20 md:py-28 px-5" id="documenti">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <p class="text-brand-green text-xs font-bold tracking-[0.2em] uppercase mb-3 reveal">Trasparenza</p>
+        <h2 class="font-display text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-brand-dark leading-tight mb-4 reveal reveal-delay-1">
+          Documenti Societari
+        </h2>
+        <p class="text-brand-dark/60 max-w-xl mx-auto reveal reveal-delay-2">
+          In ottemperanza alla normativa per le Associazioni Sportive Dilettantistiche. Documenti disponibili per la consultazione.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+        {[
+          { title: 'Statuto ASD', desc: 'Atto costitutivo e statuto sociale' },
+          { title: 'Bilancio Sociale', desc: 'Rendiconto economico annuale' },
+          { title: 'Verbale Assemblea', desc: 'Ultimo verbale assembleare' },
+          { title: 'Affiliazione FIDAL', desc: 'Certificato di affiliazione' },
+        ].map((doc, i) => (
+          <a href="#" class={`group flex items-start gap-4 bg-white border-2 border-brand-dark shadow-[4px_4px_0_#1A1A1A] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all p-5 no-underline reveal reveal-delay-${Math.min(i + 1, 4)}`}>
+            <div class="w-10 h-10 bg-brand-green/10 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-green/20 transition-colors">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00A651" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                <polyline points="14,2 14,8 20,8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-display text-sm font-bold text-brand-dark mb-1">{doc.title}</h3>
+              <p class="text-xs text-brand-dark/50">{doc.desc}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BOTTOM MARQUEE ========== -->
+  <div class="bg-brand-dark h-14 overflow-hidden flex items-center">
+    <div class="marquee-track">
+      {[...Array(8)].map(() => (
+        <span class="flex-shrink-0 text-brand-green font-display text-lg font-bold tracking-wider pr-8">
+          GAZZANIGA &bull; VALLE SERIANA &bull; OROBIE &bull; BERGAMO &bull;
+        </span>
+      ))}
+    </div>
+  </div>
+
+</BaseLayout>
