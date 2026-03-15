@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE, BOARD, ATHLETES, SPONSORS, FEATURED_EVENT } from '../data/site.js';
+import { SITE, BOARD, ATHLETES, SPONSORS, FEATURED_EVENT, RESULTS_2024, getAthleteResults } from '../data/site.js';
+const base = '/recastello';
 ---
 
 <BaseLayout
@@ -168,21 +169,70 @@ import { SITE, BOARD, ATHLETES, SPONSORS, FEATURED_EVENT } from '../data/site.js
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {ATHLETES.map((athlete, i) => (
-          <div class={`group bg-white border-2 border-brand-dark shadow-[5px_5px_0_#1A1A1A] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[2px_2px_0_#1A1A1A] transition-all overflow-hidden reveal reveal-delay-${Math.min(i + 1, 4)}`}>
-            <!-- Athlete avatar placeholder -->
-            <div class="h-48 bg-gradient-to-br from-brand-green/20 to-brand-green/5 flex items-center justify-center relative">
-              <span class="font-cursive text-6xl text-brand-green/30">{athlete.name.charAt(0)}</span>
-              <div class="absolute top-3 right-3 bg-brand-green text-white text-[0.6rem] font-bold tracking-wider uppercase px-2 py-1">
-                {athlete.specialty}
+        {ATHLETES.map((athlete, i) => {
+          const results = getAthleteResults(athlete.name);
+          const podiums = results.filter(r => r.podium);
+          return (
+            <div
+              class={`athlete-card group bg-white border-2 border-brand-dark shadow-[5px_5px_0_#1A1A1A] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[2px_2px_0_#1A1A1A] transition-all overflow-hidden reveal reveal-delay-${Math.min(i + 1, 4)} cursor-pointer`}
+              data-athlete-id={athlete.id}
+            >
+              <div class="h-48 bg-gradient-to-br from-brand-green/20 to-brand-green/5 flex items-center justify-center relative">
+                <span class="font-cursive text-6xl text-brand-green/30">{athlete.name.charAt(0)}</span>
+                <div class="absolute top-3 right-3 bg-brand-green text-white text-[0.6rem] font-bold tracking-wider uppercase px-2 py-1">
+                  {athlete.specialty}
+                </div>
+                {podiums.length > 0 && (
+                  <div class="absolute bottom-3 left-3 bg-brand-dark text-white text-[0.6rem] font-bold px-2 py-1 flex items-center gap-1">
+                    <span>🏆</span> {podiums.length} podi
+                  </div>
+                )}
+              </div>
+              <div class="p-5">
+                <h3 class="font-display text-lg font-bold text-brand-dark mb-1 flex items-center justify-between">
+                  {athlete.name}
+                  <svg class="w-4 h-4 text-brand-green athlete-chevron transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </h3>
+                <p class="text-sm text-brand-dark/60 leading-relaxed mb-0">{athlete.palmares}</p>
+              </div>
+              {/* Expandable palmares panel */}
+              <div class="athlete-palmares max-h-0 overflow-hidden transition-[max-height] duration-500 ease-in-out">
+                <div class="px-5 pb-5 border-t border-brand-dark/10 pt-4">
+                  <h4 class="text-xs font-bold tracking-[0.15em] uppercase text-brand-green mb-3">Risultati 2024</h4>
+                  {results.length > 0 ? (
+                    <ul class="space-y-2">
+                      {results.slice(0, 8).map(r => (
+                        <li class="flex items-start gap-2 text-xs">
+                          <span class={`flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full text-[0.6rem] font-bold ${r.podium ? 'bg-brand-green text-white' : 'bg-brand-dark/10 text-brand-dark'}`}>
+                            {r.position}
+                          </span>
+                          <div>
+                            <span class="font-medium text-brand-dark">{r.race}</span>
+                            {r.note && <span class="text-brand-green ml-1">— {r.note}</span>}
+                            <span class="block text-brand-dark/40 text-[0.6rem]">{new Date(r.date).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })}</span>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p class="text-xs text-brand-dark/40 italic">Risultati in aggiornamento</p>
+                  )}
+                  {results.length > 8 && (
+                    <a href={`${base}/storia/`} class="inline-block mt-3 text-xs font-bold text-brand-green hover:underline">
+                      Vedi tutti i risultati →
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
-            <div class="p-5">
-              <h3 class="font-display text-lg font-bold text-brand-dark mb-1">{athlete.name}</h3>
-              <p class="text-sm text-brand-dark/60 leading-relaxed">{athlete.palmares}</p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
+      </div>
+
+      <div class="text-center mt-10 reveal reveal-delay-4">
+        <a href={`${base}/storia/`} class="inline-flex items-center gap-2 px-7 py-3 bg-brand-dark text-white font-bold text-sm tracking-wider uppercase border-2 border-brand-dark hover:bg-brand-green hover:border-brand-green transition-all">
+          Tutta la storia dei risultati →
+        </a>
       </div>
     </div>
   </section>
@@ -197,14 +247,20 @@ import { SITE, BOARD, ATHLETES, SPONSORS, FEATURED_EVENT } from '../data/site.js
         </h2>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
         {SPONSORS.map((sponsor, i) => (
-          <div class={`bg-white border border-brand-dark/10 px-5 py-6 text-center hover:border-brand-green/40 transition-colors reveal reveal-delay-${Math.min(i + 1, 4)}`}>
+          <a
+            href={sponsor.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={`bg-white border-2 px-5 py-6 text-center no-underline hover:scale-[1.03] transition-all reveal reveal-delay-${Math.min(i + 1, 4)} ${sponsor.tier === 'main' ? 'border-brand-green/40 shadow-[3px_3px_0_#00A651]' : sponsor.tier === 'technical' ? 'border-amber-500/30 shadow-[3px_3px_0_#d97706]' : 'border-brand-dark/10 shadow-[2px_2px_0_#1A1A1A20]'}`}
+          >
             <span class={`block text-[0.6rem] font-bold tracking-[0.15em] uppercase mb-2 ${sponsor.tier === 'main' ? 'text-brand-green' : sponsor.tier === 'technical' ? 'text-amber-600' : 'text-brand-dark/40'}`}>
               {sponsor.tier === 'main' ? 'Main Sponsor' : sponsor.tier === 'technical' ? 'Partner Tecnico' : 'Supporter'}
             </span>
-            <span class="font-display text-sm font-bold text-brand-dark">{sponsor.name}</span>
-          </div>
+            <span class="font-display text-sm font-bold text-brand-dark block">{sponsor.name}</span>
+            <span class="block text-[0.55rem] text-brand-dark/30 mt-1 truncate">{sponsor.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</span>
+          </a>
         ))}
       </div>
     </div>
@@ -259,5 +315,32 @@ import { SITE, BOARD, ATHLETES, SPONSORS, FEATURED_EVENT } from '../data/site.js
       ))}
     </div>
   </div>
+
+  <script>
+    // Athlete card expand/collapse
+    document.querySelectorAll('.athlete-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const palmares = card.querySelector('.athlete-palmares');
+        const chevron = card.querySelector('.athlete-chevron');
+        if (!palmares) return;
+
+        const isOpen = palmares.style.maxHeight && palmares.style.maxHeight !== '0px';
+        if (isOpen) {
+          palmares.style.maxHeight = '0px';
+          chevron?.classList.remove('rotate-180');
+        } else {
+          // Close any other open cards
+          document.querySelectorAll('.athlete-palmares').forEach(p => {
+            p.style.maxHeight = '0px';
+          });
+          document.querySelectorAll('.athlete-chevron').forEach(c => {
+            c.classList.remove('rotate-180');
+          });
+          palmares.style.maxHeight = palmares.scrollHeight + 'px';
+          chevron?.classList.add('rotate-180');
+        }
+      });
+    });
+  </script>
 
 </BaseLayout>
