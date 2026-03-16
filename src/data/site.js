@@ -574,15 +574,23 @@ export const BLOG_POSTS = [
     slug: '2026-03-16-domenica-sportiva',
     title: 'La Domenica Sportiva — 16 Marzo 2026',
     date: '2026-03-16',
-    intro: 'Weekend di pioggia sulle Orobie ma i colori verde della Recastello non si fermano. Dalla corsa campestre a Bergamo al trail sui sentieri fangosi del Resegone, passando per un test cronometrico pre-Memorial Peket. Ecco i nostri guerrieri del fango.',
+    intro: 'Due weekend, una costante: Michele Merelli con i colori verde della Recastello sui campi di Bergamo. Prima la campestre sotto la pioggia, poi il terzo posto nella corsa su strada. Nel mezzo, il Trail del Resegone e un test interno che scalda i motori per il Memorial Peket del 25 aprile.',
     image: '/recastello/img/blog/2026-03-16.png',
     results: [
       {
         athlete: 'Michele Merelli',
         athleteId: 'michele-merelli',
+        race: 'Corsa su Strada Bergamo',
+        location: 'Bergamo',
+        text: '"E\' STATO BELLO" — tutto maiuscolo, come l\'entusiasmo di Michele dopo il terzo posto nella corsa su strada di Bergamo. Un\'ora e venti di fatica ricompensata dal podio, un salto di qualita netto rispetto al decimo della campestre di due settimane prima. Merelli sta crescendo gara dopo gara e il podio bergamasco lo conferma: quando le gambe girano e la testa e libera, i risultati arrivano. Terzo a Bergamo oggi, chissa dove domani.',
+        position: 3,
+      },
+      {
+        athlete: 'Michele Merelli',
+        athleteId: 'michele-merelli',
         race: 'Corsa Campestre Bergamo',
         location: 'Bergamo',
-        text: '"Gara sul bagnato difficile, bel posto" — cosi Michele racconta la sua campestre a Bergamo. Decimo in condizioni proibitive, con il fango che trasformava ogni curva in una lotteria. Un piazzamento che pesa piu di quanto dica il numero: sul bagnato servono gambe ma soprattutto testa, e Merelli non ha mai mollato. Il bel posto di cui parla e il Parco dei Colli, anfiteatro naturale che sotto la pioggia di marzo diventa un percorso da veri montanari — terreno ideale per chi e cresciuto sui sentieri delle Orobie.',
+        text: '"Gara sul bagnato difficile, bel posto" — cosi Michele racconta la campestre di due settimane fa. Decimo in condizioni proibitive, con il fango che trasformava ogni curva in una lotteria. Un piazzamento che pesa piu di quanto dica il numero: sul bagnato servono gambe ma soprattutto testa. Il bel posto di cui parla e il Parco dei Colli, anfiteatro naturale che sotto la pioggia di marzo diventa un percorso da veri montanari.',
         position: 10,
       },
       {

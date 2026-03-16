@@ -72,16 +72,15 @@ export default {
       const dateStr = now.toISOString().slice(0, 10);
       const ts = now.getTime();
 
-      // Upload photos if present (array of { name, data } with base64)
-      const photoUrls = [];
+      // Extract photo data for later (don't block on upload)
+      const photoEntries = [];
       if (data.photos && Array.isArray(data.photos)) {
         for (let i = 0; i < Math.min(data.photos.length, 3); i++) {
           const photo = data.photos[i];
-          if (!photo.data) continue;
-          const ext = photo.name?.split('.').pop() || 'jpg';
-          const filename = `${dateStr}_${ts}_${i}.${ext}`;
-          const url = await uploadImage(env, filename, photo.data);
-          if (url) photoUrls.push(url);
+          if (photo?.data) {
+            const ext = photo.name?.split('.').pop() || 'jpg';
+            photoEntries.push({ ext, data: photo.data, idx: i });
+          }
         }
       }
 
@@ -90,8 +89,8 @@ export default {
       if (type === 'risultato') {
         title = `Risultato: ${data.gara || 'Gara'} — ${data.nome || ''} ${data.cognome || ''}`;
         labels = ['risultato', 'submission'];
-        const photoSection = photoUrls.length > 0
-          ? '\n### Foto\n' + photoUrls.map((u, i) => `![foto ${i + 1}](${u})`).join('\n') + '\n'
+        const photoNote = photoEntries.length > 0
+          ? `\n### Foto\n_${photoEntries.length} foto allegate (vedi commento sotto)_\n`
           : '';
         body = [
           `## Invio Risultato Gara`,
@@ -108,7 +107,7 @@ export default {
           ``,
           `### Racconto`,
           data.racconto || '_nessun racconto_',
-          photoSection,
+          photoNote,
           `---`,
           `_Inviato dal sito La Recastello il ${now.toLocaleDateString('it-IT')}_`,
         ].join('\n');
@@ -156,8 +155,40 @@ export default {
 
       const issue = await ghResponse.json();
 
+      // Upload photos after issue creation (non-blocking, best-effort)
+      let uploadedPhotos = 0;
+      if (photoEntries.length > 0) {
+        const photoUrls = [];
+        for (const p of photoEntries) {
+          try {
+            const filename = `${dateStr}_${ts}_${p.idx}.${p.ext}`;
+            const url = await uploadImage(env, filename, p.data);
+            if (url) photoUrls.push(url);
+          } catch (e) { /* best effort */ }
+        }
+        uploadedPhotos = photoUrls.length;
+
+        // Add photos as a comment on the issue
+        if (photoUrls.length > 0) {
+          const commentBody = '### Foto\n' + photoUrls.map((u, i) => `![foto ${i + 1}](${u})`).join('\n\n');
+          await fetch(
+            `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/issues/${issue.number}/comments`,
+            {
+              method: 'POST',
+              headers: {
+                Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+                Accept: 'application/vnd.github+json',
+                'User-Agent': 'RecastelloFormsWorker/1.0',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ body: commentBody }),
+            }
+          ).catch(() => {});
+        }
+      }
+
       return new Response(
-        JSON.stringify({ ok: true, issue: issue.number, url: issue.html_url, photos: photoUrls.length }),
+        JSON.stringify({ ok: true, issue: issue.number, url: issue.html_url, photos: uploadedPhotos }),
         { status: 201, headers: { ...corsHeaders(origin), 'Content-Type': 'application/json' } }
       );
 

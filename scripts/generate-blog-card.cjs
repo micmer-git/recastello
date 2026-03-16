@@ -248,8 +248,8 @@ const html = `<!DOCTYPE html>
     </div>
 
     <div class="quote-section">
-      <div class="quote-text">"Gara sul bagnato difficile, bel posto"</div>
-      <div class="quote-attr">— Michele Merelli, Campestre Bergamo, 10° posto</div>
+      <div class="quote-text">"E' STATO BELLO" + "Gara sul bagnato difficile, bel posto"</div>
+      <div class="quote-attr">— Michele Merelli: 3° su strada + 10° campestre, doppio weekend a Bergamo</div>
     </div>
 
     <div class="results">
@@ -265,17 +265,17 @@ const html = `<!DOCTYPE html>
         <div class="result-race">Trail del Resegone</div>
         <div class="result-loc">Lecco</div>
       </div>
+      <div class="result-card bronze">
+        <div class="result-pos pos-bronze">3</div>
+        <div class="result-name">Michele Merelli</div>
+        <div class="result-race">Strada Bergamo</div>
+        <div class="result-loc">"E' STATO BELLO"</div>
+      </div>
       <div class="result-card green">
         <div class="result-pos pos-green">5</div>
         <div class="result-name">Vivien Bonzi</div>
         <div class="result-race">Trail del Resegone</div>
         <div class="result-loc">1a bergamasca</div>
-      </div>
-      <div class="result-card green">
-        <div class="result-pos pos-green">10</div>
-        <div class="result-name">Michele Merelli</div>
-        <div class="result-race">Campestre Bergamo</div>
-        <div class="result-loc">"bel posto"</div>
       </div>
     </div>
   </div>
