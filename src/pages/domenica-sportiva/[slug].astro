@@ -34,6 +34,13 @@ const dayStr = dateObj.toLocaleDateString('it-IT', { weekday: 'long', day: 'nume
       <p class="text-lg text-brand-dark/70 leading-relaxed">{post.intro}</p>
     </div>
 
+    {/* Blog card image */}
+    {post.image && (
+      <div class="mb-12 border-2 border-brand-dark shadow-[6px_6px_0_#1A1A1A] overflow-hidden">
+        <img src={post.image} alt={post.title} class="w-full h-auto" loading="lazy" />
+      </div>
+    )}
+
     <!-- Divider -->
     <div class="h-1 w-16 bg-brand-green mb-12"></div>
 

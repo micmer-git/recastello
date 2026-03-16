@@ -34,7 +34,13 @@ const athleteMap = new Map(ATHLETES.map(a => [a.id, a]));
         const podiums = post.results.filter(r => r.position && r.position <= 3);
         return (
           <a href={`${base}/domenica-sportiva/${post.slug}/`} class={`block mb-8 no-underline group reveal reveal-delay-${Math.min(i + 1, 4)}`}>
-            <article class="bg-white border-2 border-brand-dark shadow-[5px_5px_0_#1A1A1A] group-hover:translate-x-[3px] group-hover:translate-y-[3px] group-hover:shadow-[2px_2px_0_#1A1A1A] transition-all p-6 md:p-8">
+            <article class="bg-white border-2 border-brand-dark shadow-[5px_5px_0_#1A1A1A] group-hover:translate-x-[3px] group-hover:translate-y-[3px] group-hover:shadow-[2px_2px_0_#1A1A1A] transition-all overflow-hidden">
+              {post.image && (
+                <div class="overflow-hidden">
+                  <img src={post.image} alt={post.title} class="w-full h-auto group-hover:scale-[1.02] transition-transform duration-500" loading="lazy" />
+                </div>
+              )}
+              <div class="p-6 md:p-8">
               <div class="flex items-center gap-3 mb-4">
                 <time class="text-xs font-bold tracking-wider uppercase text-brand-dark/40" datetime={post.date}>{dayStr}</time>
                 {podiums.length > 0 && (
@@ -69,6 +75,7 @@ const athleteMap = new Map(ATHLETES.map(a => [a.id, a]));
 
               <div class="mt-4 text-xs font-bold text-brand-green uppercase tracking-wider group-hover:underline">
                 Leggi tutto →
+              </div>
               </div>
             </article>
           </a>
