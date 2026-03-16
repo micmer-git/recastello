@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE, BOARD, ATHLETES, SPONSORS, FEATURED_EVENT, RESULTS_2024, RESULTS_ARCHIVE, ARCHIVE_IMAGES, getAthleteResults } from '../data/site.js';
+import { SITE, BOARD, ATHLETES, SPONSORS, FEATURED_EVENT, RESULTS_2024, RESULTS_ARCHIVE, ARCHIVE_IMAGES, BADGE_TYPES, getAthleteResults } from '../data/site.js';
 const base = '/recastello';
 ---
 
@@ -207,7 +207,7 @@ const base = '/recastello';
   <!-- ========== ATHLETES ========== -->
   <section class="py-20 md:py-28 px-5" id="atleti">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16">
+      <div class="text-center mb-10">
         <p class="text-brand-green text-xs font-bold tracking-[0.2em] uppercase mb-3 reveal">Il Gruppo</p>
         <h2 class="font-display text-[clamp(2rem,5vw,3rem)] font-bold text-brand-dark leading-tight mb-4 reveal reveal-delay-1">
           I Nostri Atleti
@@ -217,20 +217,48 @@ const base = '/recastello';
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Search athletes -->
+      <div class="max-w-md mx-auto mb-10 reveal reveal-delay-3">
+        <div class="relative">
+          <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-dark/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="athleteSearch" placeholder="Cerca atleta per nome, specialita..."
+            class="w-full pl-11 pr-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark placeholder:text-brand-dark/30 focus:border-brand-green focus:outline-none transition-colors" />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="athleteGrid">
         {ATHLETES.map((athlete, i) => {
           const results = getAthleteResults(athlete.name);
           const podiums = results.filter(r => r.podium);
+          const badges = athlete.badges || [];
           return (
             <div
               class={`athlete-card group bg-white border-2 border-brand-dark shadow-[5px_5px_0_#1A1A1A] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[2px_2px_0_#1A1A1A] transition-all overflow-hidden reveal reveal-delay-${Math.min(i + 1, 4)} cursor-pointer`}
               data-athlete-id={athlete.id}
+              data-athlete-name={athlete.name.toLowerCase()}
+              data-athlete-specialty={athlete.specialty.toLowerCase()}
             >
               <div class="h-48 bg-gradient-to-br from-brand-green/20 to-brand-green/5 flex items-center justify-center relative">
                 <span class="font-cursive text-6xl text-brand-green/30">{athlete.name.charAt(0)}</span>
                 <div class="absolute top-3 right-3 bg-brand-green text-white text-[0.6rem] font-bold tracking-wider uppercase px-2 py-1">
                   {athlete.specialty}
                 </div>
+                {/* Badge patches — top left corner */}
+                {badges.length > 0 && (
+                  <div class="absolute top-3 left-3 flex flex-wrap gap-1 max-w-[60%]">
+                    {badges.slice(0, 4).map(b => {
+                      const bt = BADGE_TYPES[b.type];
+                      return bt ? (
+                        <span class={`inline-flex items-center gap-0.5 ${bt.color} text-white text-[0.55rem] font-bold px-1.5 py-0.5 leading-tight`} title={b.label}>
+                          <span class="text-[0.6rem]">{bt.icon}</span>
+                        </span>
+                      ) : null;
+                    })}
+                    {badges.length > 4 && (
+                      <span class="bg-brand-dark/60 text-white text-[0.55rem] font-bold px-1.5 py-0.5">+{badges.length - 4}</span>
+                    )}
+                  </div>
+                )}
                 {podiums.length > 0 && (
                   <div class="absolute bottom-3 left-3 bg-brand-dark text-white text-[0.6rem] font-bold px-2 py-1 flex items-center gap-1">
                     <span>🏆</span> {podiums.length} podi
@@ -242,24 +270,34 @@ const base = '/recastello';
                   <a href={`${base}/atleta/${athlete.id}/`} class="hover:text-brand-green transition-colors" onclick="event.stopPropagation()">
                     {athlete.name}
                   </a>
-                  <span class="flex items-center gap-2">
-                    {athlete.instagram && (
-                      <a href={`https://www.instagram.com/${athlete.instagram}/`} target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="text-brand-dark/30 hover:text-brand-green transition-colors" aria-label={`Instagram @${athlete.instagram}`}>
-                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg>
-                      </a>
-                    )}
-                    <svg class="w-4 h-4 text-brand-green athlete-chevron transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-                  </span>
+                  <svg class="w-4 h-4 text-brand-green athlete-chevron transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
                 </h3>
                 <p class="text-sm text-brand-dark/60 leading-relaxed mb-0">{athlete.palmares}</p>
               </div>
-              {/* Expandable palmares panel */}
+              {/* Expandable panel — badges overview + results */}
               <div class="athlete-palmares max-h-0 overflow-hidden transition-[max-height] duration-500 ease-in-out">
                 <div class="px-5 pb-5 border-t border-brand-dark/10 pt-4">
-                  <h4 class="text-xs font-bold tracking-[0.15em] uppercase text-brand-green mb-3">Risultati 2024</h4>
+                  {/* Badge patches display */}
+                  {badges.length > 0 && (
+                    <div class="mb-4">
+                      <h4 class="text-xs font-bold tracking-[0.15em] uppercase text-brand-dark/40 mb-2">Palmares</h4>
+                      <div class="flex flex-wrap gap-1.5">
+                        {badges.map(b => {
+                          const bt = BADGE_TYPES[b.type];
+                          return bt ? (
+                            <span class={`inline-flex items-center gap-1 ${bt.color} text-white text-[0.6rem] font-bold px-2 py-1 leading-tight`}>
+                              <span>{bt.icon}</span>
+                              <span>{b.label}</span>
+                            </span>
+                          ) : null;
+                        })}
+                      </div>
+                    </div>
+                  )}
+                  <h4 class="text-xs font-bold tracking-[0.15em] uppercase text-brand-green mb-3">Risultati Recenti</h4>
                   {results.length > 0 ? (
                     <ul class="space-y-2">
-                      {results.slice(0, 8).map(r => (
+                      {results.slice(0, 6).map(r => (
                         <li class="flex items-start gap-2 text-xs">
                           <span class={`flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full text-[0.6rem] font-bold ${r.podium ? 'bg-brand-green text-white' : 'bg-brand-dark/10 text-brand-dark'}`}>
                             {r.position}
@@ -275,11 +313,9 @@ const base = '/recastello';
                   ) : (
                     <p class="text-xs text-brand-dark/40 italic">Risultati in aggiornamento</p>
                   )}
-                  {results.length > 8 && (
-                    <a href={`${base}/risultati/`} class="inline-block mt-3 text-xs font-bold text-brand-green hover:underline">
-                      Vedi tutti i risultati →
-                    </a>
-                  )}
+                  <a href={`${base}/atleta/${athlete.id}/`} class="inline-block mt-3 text-xs font-bold text-brand-green hover:underline" onclick="event.stopPropagation()">
+                    Profilo completo →
+                  </a>
                 </div>
               </div>
             </div>
@@ -463,6 +499,22 @@ const base = '/recastello';
       next.addEventListener('click', () => { pos = Math.min(pos + step, maxScroll); update(); });
       prev.addEventListener('click', () => { pos = Math.max(pos - step, 0); update(); });
       update();
+    })();
+
+    // Athlete search filter
+    (() => {
+      const input = document.getElementById('athleteSearch');
+      const grid = document.getElementById('athleteGrid');
+      if (!input || !grid) return;
+      input.addEventListener('input', () => {
+        const q = input.value.toLowerCase().trim();
+        grid.querySelectorAll('.athlete-card').forEach(card => {
+          const name = card.dataset.athleteName || '';
+          const spec = card.dataset.athleteSpecialty || '';
+          const match = !q || name.includes(q) || spec.includes(q);
+          card.style.display = match ? '' : 'none';
+        });
+      });
     })();
 
     // Athlete card expand/collapse
