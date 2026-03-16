@@ -1,3 +1,14 @@
+// Badge types for athlete achievements — visual patches
+export const BADGE_TYPES = {
+  tricolore: { icon: '🇮🇹', label: 'Tricolore', color: 'bg-green-600', desc: 'Campione/ssa Italiano/a' },
+  mondiale:  { icon: '🌍', label: 'Mondiale', color: 'bg-yellow-500', desc: 'Campionato del Mondo' },
+  europa:    { icon: '🇪🇺', label: 'Europa', color: 'bg-blue-600', desc: 'Campionato Europeo' },
+  azzurro:   { icon: '🔵', label: 'Azzurro/a', color: 'bg-blue-500', desc: 'Convocazione Nazionale' },
+  record:    { icon: '⚡', label: 'Record', color: 'bg-purple-600', desc: 'Record di percorso' },
+  capitano:  { icon: '©', label: 'Capitano', color: 'bg-brand-dark', desc: 'Capitano di squadra' },
+  vittoria:  { icon: '⭐', label: 'Vittoria', color: 'bg-amber-500', desc: 'Vittoria di rilievo' },
+};
+
 export const SITE = {
   name: 'La Recastello',
   fullName: 'ASD La Recastello Radici Group',
@@ -42,7 +53,11 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna / Vertical',
     palmares: 'Campione italiano sola salita 2025, Campione italiano Vertical Kilometer 2025, Nazionale azzurra',
     born: 1997,
-    instagram: 'andrea.elia_',
+    badges: [
+      { type: 'tricolore', label: 'Campione Italiano Sola Salita 2025' },
+      { type: 'tricolore', label: 'Campione Italiano Vertical KM 2025' },
+      { type: 'azzurro', label: 'Nazionale Azzurra' },
+    ],
   },
   {
     id: 'isacco-costa',
@@ -50,7 +65,12 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna classica',
     palmares: 'Campione italiano corsa in montagna classica 2024 e 2025, Nazionale azzurra Europei Annecy 2024',
     born: 1998,
-    instagram: 'isacco_costa',
+    badges: [
+      { type: 'tricolore', label: 'Campione Italiano Classica 2024' },
+      { type: 'tricolore', label: 'Campione Italiano Classica 2025' },
+      { type: 'azzurro', label: 'Nazionale Azzurra' },
+      { type: 'europa', label: 'Europei Annecy 2024' },
+    ],
   },
   {
     id: 'vivien-bonzi',
@@ -58,7 +78,12 @@ export const ATHLETES = [
     specialty: 'Vertical / Corsa in montagna',
     palmares: 'Campionessa italiana Vertical Kilometer 2025, Nazionale azzurra Europei Annecy 2024',
     born: 1996,
-    instagram: 'vivienbonzi',
+    badges: [
+      { type: 'tricolore', label: 'Campionessa Italiana VK 2025' },
+      { type: 'tricolore', label: 'Campionessa Italiana Classica 2024' },
+      { type: 'azzurro', label: 'Nazionale Azzurra' },
+      { type: 'europa', label: 'Europei Cross Bruxelles 2023' },
+    ],
   },
   {
     id: 'beatrice-bianchi',
@@ -66,7 +91,12 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna',
     palmares: 'Campionessa staffetta 2025, 1a assoluta Laghi Gemelli + record percorso Giro Creste 2024, Nazionale azzurra',
     born: 1999,
-    instagram: 'beatrice.bianchi_',
+    badges: [
+      { type: 'mondiale', label: 'Campionessa Mondiale Galles 2025' },
+      { type: 'tricolore', label: 'Oro Staffetta Italiani 2025' },
+      { type: 'record', label: 'Record Percorso Giro Creste' },
+      { type: 'azzurro', label: 'Nazionale Azzurra' },
+    ],
   },
   {
     id: 'alice-gaggi',
@@ -74,7 +104,12 @@ export const ATHLETES = [
     specialty: 'Trail running / Ultra',
     palmares: 'Capitana squadra femminile, 1a assoluta Lavaredo Ultra Trail 20km 2024, Nazionale azzurra Annecy 2024',
     born: 1987,
-    instagram: 'alice_gaggi',
+    badges: [
+      { type: 'tricolore', label: 'Oro Staffetta Donne 2025' },
+      { type: 'capitano', label: 'Capitana Squadra Femminile' },
+      { type: 'vittoria', label: '1a Lavaredo Ultra Trail 20km' },
+      { type: 'azzurro', label: 'Nazionale Azzurra' },
+    ],
   },
   {
     id: 'luca-magri',
@@ -82,6 +117,11 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna',
     palmares: 'Staffetta oro campionati italiani 2025, 1° in Galles 2025',
     born: 1990,
+    badges: [
+      { type: 'mondiale', label: 'Campione Mondiale Galles 2025' },
+      { type: 'tricolore', label: 'Oro Staffetta Italiani 2025' },
+      { type: 'azzurro', label: 'Nazionale Azzurra' },
+    ],
   },
   // New signings 2026
   {
@@ -90,6 +130,10 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna / Sola salita',
     palmares: 'Campionessa mondiale a squadre sola salita 2025, new signing 2026',
     born: 2000,
+    badges: [
+      { type: 'mondiale', label: 'Oro Mondiale Squadre 2025' },
+      { type: 'azzurro', label: 'Nazionale Azzurra' },
+    ],
   },
   {
     id: 'benedetta-broggi',
@@ -97,6 +141,7 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna',
     palmares: 'New signing 2026',
     born: 2001,
+    badges: [],
   },
   // Senior roster (from larecastello.com/assoluti.html)
   {
@@ -105,6 +150,10 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna',
     palmares: 'Staffetta oro campionati italiani, 1° Fosso Bergamasco tappa finale',
     born: 1988,
+    badges: [
+      { type: 'tricolore', label: 'Oro Staffetta Italiani' },
+      { type: 'vittoria', label: '1° Fosso Bergamasco Finale' },
+    ],
   },
   {
     id: 'fabio-ruga',
@@ -112,6 +161,9 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna Master',
     palmares: 'Campione italiano Master 2024',
     born: 1981,
+    badges: [
+      { type: 'tricolore', label: 'Campione Italiano Master 2024' },
+    ],
   },
   {
     id: 'samantha-galassi',
@@ -119,6 +171,10 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna',
     palmares: '1a donne Colere-Rifugio Albani, Trofeo Valli Bergamasche',
     born: 1988,
+    badges: [
+      { type: 'vittoria', label: '1a Colere-Rifugio Albani' },
+      { type: 'vittoria', label: '5x 521 Vertical Donne' },
+    ],
   },
   {
     id: 'claudia-previtali',
@@ -126,6 +182,7 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna',
     palmares: 'Roster 2026',
     born: 1995,
+    badges: [],
   },
   // Additional roster from larecastello.com
   {
@@ -134,6 +191,9 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna',
     palmares: 'Seniores femminile',
     born: 1996,
+    badges: [
+      { type: 'vittoria', label: '1a Marmitte dei Giganti 2018' },
+    ],
   },
   {
     id: 'paolo-poli',
@@ -141,6 +201,7 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna',
     palmares: 'Seniores maschile',
     born: 1990,
+    badges: [],
   },
   {
     id: 'cristina-merla',
@@ -148,6 +209,7 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna',
     palmares: 'Seniores femminile',
     born: 1987,
+    badges: [],
   },
 ];
 
