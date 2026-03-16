@@ -248,11 +248,17 @@ const html = `<!DOCTYPE html>
     </div>
 
     <div class="quote-section">
-      <div class="quote-text">"E' STATO BELLO" + "Gara sul bagnato difficile, bel posto"</div>
-      <div class="quote-attr">— Michele Merelli: 3° su strada + 10° campestre, doppio weekend a Bergamo</div>
+      <div class="quote-text">"Top" — Michele Merelli vince a Gromo dopo 11 ore di trail nella neve</div>
+      <div class="quote-attr">— Tre gare, un crescendo: 10° campestre → 3° strada → 1° trail</div>
     </div>
 
     <div class="results">
+      <div class="result-card gold">
+        <div class="result-pos pos-gold">1</div>
+        <div class="result-name">Michele Merelli</div>
+        <div class="result-race">Trail di Gromo</div>
+        <div class="result-loc">11h — "Top"</div>
+      </div>
       <div class="result-card gold">
         <div class="result-pos pos-gold">1</div>
         <div class="result-name">Isacco Costa</div>
@@ -264,12 +270,6 @@ const html = `<!DOCTYPE html>
         <div class="result-name">Andrea Elia</div>
         <div class="result-race">Trail del Resegone</div>
         <div class="result-loc">Lecco</div>
-      </div>
-      <div class="result-card bronze">
-        <div class="result-pos pos-bronze">3</div>
-        <div class="result-name">Michele Merelli</div>
-        <div class="result-race">Strada Bergamo</div>
-        <div class="result-loc">"E' STATO BELLO"</div>
       </div>
       <div class="result-card green">
         <div class="result-pos pos-green">5</div>

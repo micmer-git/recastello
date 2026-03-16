@@ -73,6 +73,11 @@ const dayStr = dateObj.toLocaleDateString('it-IT', { weekday: 'long', day: 'nume
               </div>
             </div>
             <p class="text-sm text-brand-dark/70 leading-relaxed">{r.text}</p>
+            {r.image && (
+              <div class="mt-4 border-2 border-brand-dark/10 overflow-hidden">
+                <img src={r.image} alt={`${r.athlete} — ${r.race}`} class="w-full h-auto max-h-96 object-cover" loading="lazy" />
+              </div>
+            )}
           </div>
         );
       })}

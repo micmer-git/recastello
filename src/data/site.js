@@ -574,15 +574,24 @@ export const BLOG_POSTS = [
     slug: '2026-03-16-domenica-sportiva',
     title: 'La Domenica Sportiva — 16 Marzo 2026',
     date: '2026-03-16',
-    intro: 'Due weekend, una costante: Michele Merelli con i colori verde della Recastello sui campi di Bergamo. Prima la campestre sotto la pioggia, poi il terzo posto nella corsa su strada. Nel mezzo, il Trail del Resegone e un test interno che scalda i motori per il Memorial Peket del 25 aprile.',
+    intro: 'Tre gare, un crescendo. Michele Merelli apre il mese nel fango della campestre bergamasca, risale sul podio nella corsa su strada, e chiude con la vittoria a Gromo — undici ore di trail nella neve della Val Seriana. "Top", dice lui. E ha ragione. Nel frattempo, il Trail del Resegone e un test pre-Peket completano il quadro di un weekend verde Recastello.',
     image: '/recastello/img/blog/2026-03-16.png',
     results: [
       {
         athlete: 'Michele Merelli',
         athleteId: 'michele-merelli',
+        race: 'Trail di Gromo',
+        location: 'Gromo (BG)',
+        text: '"Top" — una parola sola, e dice tutto. Michele Merelli vince a Gromo, undici ore di trail tra i sentieri innevati dell\'alta Val Seriana. Una vittoria che chiude un mese in crescendo verticale: dal decimo posto nella campestre sotto la pioggia, al podio su strada, fino al gradino piu alto del podio tra le montagne di casa. La foto lo ritrae con lo sguardo di chi sa che la fatica e stata ripagata — maglietta "Stay Active", capelli spettinati dal vento, un sorriso che vale piu di qualsiasi tempo cronometrico.',
+        position: 1,
+        image: '/recastello/img/blog/merelli-gromo.jpg',
+      },
+      {
+        athlete: 'Michele Merelli',
+        athleteId: 'michele-merelli',
         race: 'Corsa su Strada Bergamo',
         location: 'Bergamo',
-        text: '"E\' STATO BELLO" — tutto maiuscolo, come l\'entusiasmo di Michele dopo il terzo posto nella corsa su strada di Bergamo. Un\'ora e venti di fatica ricompensata dal podio, un salto di qualita netto rispetto al decimo della campestre di due settimane prima. Merelli sta crescendo gara dopo gara e il podio bergamasco lo conferma: quando le gambe girano e la testa e libera, i risultati arrivano. Terzo a Bergamo oggi, chissa dove domani.',
+        text: '"E\' STATO BELLO" — tutto maiuscolo, come l\'entusiasmo di Michele dopo il terzo posto nella corsa su strada di Bergamo. Un\'ora e venti di fatica ricompensata dal podio, un salto di qualita netto rispetto al decimo della campestre. Merelli sta crescendo gara dopo gara.',
         position: 3,
       },
       {
@@ -590,7 +599,7 @@ export const BLOG_POSTS = [
         athleteId: 'michele-merelli',
         race: 'Corsa Campestre Bergamo',
         location: 'Bergamo',
-        text: '"Gara sul bagnato difficile, bel posto" — cosi Michele racconta la campestre di due settimane fa. Decimo in condizioni proibitive, con il fango che trasformava ogni curva in una lotteria. Un piazzamento che pesa piu di quanto dica il numero: sul bagnato servono gambe ma soprattutto testa. Il bel posto di cui parla e il Parco dei Colli, anfiteatro naturale che sotto la pioggia di marzo diventa un percorso da veri montanari.',
+        text: '"Gara sul bagnato difficile, bel posto" — cosi Michele racconta la campestre che ha aperto il mese. Decimo in condizioni proibitive, con il fango che trasformava ogni curva in una lotteria. Il bel posto di cui parla e il Parco dei Colli, anfiteatro naturale che sotto la pioggia di marzo diventa terreno da veri montanari.',
         position: 10,
       },
       {
