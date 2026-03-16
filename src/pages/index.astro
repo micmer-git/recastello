@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE, BOARD, ATHLETES, SPONSORS, FEATURED_EVENT, RESULTS_2024, getAthleteResults } from '../data/site.js';
+import { SITE, BOARD, ATHLETES, SPONSORS, FEATURED_EVENT, RESULTS_2024, RESULTS_ARCHIVE, ARCHIVE_IMAGES, getAthleteResults } from '../data/site.js';
 const base = '/recastello';
 ---
 
@@ -47,6 +47,64 @@ const base = '/recastello';
     </div>
   </section>
 
+  <!-- ========== INSTAGRAM PREVIEW ========== -->
+  <section class="py-12 md:py-16 px-5 bg-brand-cream" id="instagram">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center gap-3">
+          <svg class="w-6 h-6 text-brand-dark" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          <h2 class="font-display text-xl md:text-2xl font-bold text-brand-dark">@larecastello</h2>
+        </div>
+        <a href="https://www.instagram.com/larecastello/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2 bg-brand-dark text-white text-xs font-bold tracking-wider uppercase hover:bg-brand-green transition-colors">
+          Seguici
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+      </div>
+
+      <div class="ig-slider-container overflow-hidden relative">
+        <div class="ig-slider flex gap-4 transition-transform duration-500 ease-out" id="igSlider">
+          <!-- Card 1 -->
+          <div class="ig-card flex-shrink-0 w-[280px] md:w-[320px] group">
+            <a href="https://www.instagram.com/larecastello/" target="_blank" rel="noopener noreferrer" class="block no-underline">
+              <div class="aspect-square overflow-hidden border-2 border-brand-dark shadow-[4px_4px_0_#1A1A1A] group-hover:shadow-[2px_2px_0_#1A1A1A] group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-all">
+                <img src={`${base}/img/example_recastello_Post.png`} alt="La Recastello post" class="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <p class="mt-3 text-xs text-brand-dark/60 font-medium line-clamp-2">Risultati del weekend in gara con i colori della Recastello</p>
+            </a>
+          </div>
+          <!-- Card 2 -->
+          <div class="ig-card flex-shrink-0 w-[280px] md:w-[320px] group">
+            <a href="https://www.instagram.com/larecastello/" target="_blank" rel="noopener noreferrer" class="block no-underline">
+              <div class="aspect-square overflow-hidden border-2 border-brand-dark shadow-[4px_4px_0_#1A1A1A] group-hover:shadow-[2px_2px_0_#1A1A1A] group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-all">
+                <img src={`${base}/img/exaple_recastello_post_2.png`} alt="La Recastello atleti" class="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <p class="mt-3 text-xs text-brand-dark/60 font-medium line-clamp-2">I nostri atleti alla conquista delle vette orobiche</p>
+            </a>
+          </div>
+          <!-- Card 3 — CTA card -->
+          <div class="ig-card flex-shrink-0 w-[280px] md:w-[320px] group">
+            <a href="https://www.instagram.com/larecastello/" target="_blank" rel="noopener noreferrer" class="block no-underline">
+              <div class="aspect-square overflow-hidden border-2 border-brand-green bg-gradient-to-br from-brand-green/20 to-brand-green/5 flex items-center justify-center">
+                <div class="text-center px-8">
+                  <svg class="w-12 h-12 text-brand-green mx-auto mb-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                  <p class="font-display text-lg font-bold text-brand-dark mb-2">Vedi tutti i post</p>
+                  <p class="text-xs text-brand-dark/50">Segui @larecastello su Instagram</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <!-- Slider arrows -->
+        <button class="ig-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-brand-dark text-white flex items-center justify-center hover:bg-brand-green transition-colors opacity-0 pointer-events-none" aria-label="Precedente">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="ig-next absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-brand-dark text-white flex items-center justify-center hover:bg-brand-green transition-colors" aria-label="Successivo">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- ========== MARQUEE ========== -->
   <div class="bg-brand-green h-14 overflow-hidden flex items-center">
     <div class="marquee-track">
@@ -87,19 +145,10 @@ const base = '/recastello';
           <p class="text-sm text-brand-dark/50 font-medium reveal reveal-delay-4">{FEATURED_EVENT.registration}</p>
         </div>
 
-        <!-- Event visual -->
+        <!-- Event visual — Monte Poieto -->
         <div class="relative reveal reveal-delay-2">
-          <div class="bg-brand-green/10 border-2 border-brand-green/30 aspect-[4/3] flex items-center justify-center overflow-hidden">
-            <svg viewBox="0 0 400 300" class="w-full h-full" aria-hidden="true">
-              <rect width="400" height="300" fill="#F2EFE9"/>
-              <!-- Stylized mountain scene -->
-              <polygon points="0,300 60,140 120,200 200,80 280,180 340,100 400,160 400,300" fill="#00A651" opacity="0.2"/>
-              <polygon points="0,300 80,180 150,240 240,120 320,220 400,150 400,300" fill="#00A651" opacity="0.15"/>
-              <polygon points="0,300 100,230 180,260 260,200 340,250 400,220 400,300" fill="#00A651" opacity="0.1"/>
-              <!-- Runner silhouette hint -->
-              <circle cx="200" cy="130" r="40" fill="#00A651" opacity="0.12"/>
-              <text x="200" y="135" text-anchor="middle" font-family="Oswald" font-size="14" font-weight="700" fill="#00A651" opacity="0.5">25 APR</text>
-            </svg>
+          <div class="border-2 border-brand-dark shadow-[6px_6px_0_#1A1A1A] aspect-[4/3] overflow-hidden">
+            <img src={`${base}/img/monte_poieto.jpg`} alt="Monte Poieto, arrivo della gara Gazzaniga-Monte Poieto" class="w-full h-full object-cover" loading="lazy" />
           </div>
           <div class="absolute -bottom-3 -right-3 bg-brand-dark text-white px-5 py-2 font-display text-sm font-bold tracking-wider">
             Monte Poieto — 1360m
@@ -305,6 +354,72 @@ const base = '/recastello';
     </div>
   </section>
 
+  <!-- ========== ARCHIVIO GARE 2018-2023 ========== -->
+  <section class="py-20 md:py-28 px-5 bg-brand-dark text-white" id="archivio">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="text-brand-green text-xs font-bold tracking-[0.2em] uppercase mb-3 reveal">Archivio</p>
+        <h2 class="font-display text-[clamp(2rem,5vw,3rem)] font-bold leading-tight mb-4 reveal reveal-delay-1">
+          Gare e Risultati 2018–2023
+        </h2>
+        <p class="text-white/60 max-w-xl mx-auto reveal reveal-delay-2">
+          Sei stagioni di vittorie, podi e imprese sulle montagne d'Italia e d'Europa.
+        </p>
+      </div>
+
+      {[2023, 2022, 2021, 2020, 2019, 2018].map((year, yi) => {
+        const yearResults = RESULTS_ARCHIVE.filter(r => r.year === year);
+        const yearPodiums = yearResults.filter(r => r.podium);
+        const yearImages = ARCHIVE_IMAGES[year] || [];
+        return (
+          <div class={`mb-16 last:mb-0 reveal reveal-delay-${Math.min(yi + 1, 4)}`}>
+            <div class="flex items-center gap-4 mb-6">
+              <span class="font-display text-4xl md:text-5xl font-bold text-brand-green">{year}</span>
+              <div class="flex-1 h-px bg-white/10"></div>
+              <span class="text-xs font-bold text-white/40 tracking-wider uppercase">{yearResults.length} risultati / {yearPodiums.length} podi</span>
+            </div>
+
+            {/* Image gallery row */}
+            {yearImages.length > 0 && (
+              <div class="flex gap-3 mb-6 overflow-x-auto pb-2 -mx-1 px-1">
+                {yearImages.map(img => (
+                  <div class="flex-shrink-0 w-48 h-32 border border-white/20 overflow-hidden hover:border-brand-green/50 transition-colors">
+                    <img src={img.src} alt={img.alt} class="w-full h-full object-cover" loading="lazy" />
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Results grid */}
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {yearResults.slice(0, 6).map(r => (
+                <div class={`flex items-start gap-3 p-3 border ${r.podium ? 'border-brand-green/30 bg-brand-green/5' : 'border-white/5 bg-white/[0.02]'}`}>
+                  <span class={`flex-shrink-0 w-7 h-7 flex items-center justify-center text-xs font-bold ${r.podium ? 'bg-brand-green text-white' : 'bg-white/10 text-white/60'}`}>
+                    {r.position}
+                  </span>
+                  <div class="min-w-0">
+                    <p class="text-sm font-medium text-white truncate">{r.athlete}</p>
+                    <p class="text-xs text-white/40 truncate">{r.race}</p>
+                    {r.note && <p class="text-xs text-brand-green mt-0.5">{r.note}</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+            {yearResults.length > 6 && (
+              <p class="text-xs text-white/30 mt-3 text-right">+ altri {yearResults.length - 6} risultati</p>
+            )}
+          </div>
+        );
+      })}
+
+      <div class="text-center mt-12 reveal reveal-delay-4">
+        <a href={`${base}/storia/`} class="inline-flex items-center gap-2 px-7 py-3 bg-brand-green text-white font-bold text-sm tracking-wider uppercase border-2 border-brand-green hover:bg-transparent hover:text-brand-green transition-all">
+          Archivio completo risultati
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ========== BOTTOM MARQUEE ========== -->
   <div class="bg-brand-dark h-14 overflow-hidden flex items-center">
     <div class="marquee-track">
@@ -317,6 +432,30 @@ const base = '/recastello';
   </div>
 
   <script>
+    // Instagram slider
+    (() => {
+      const slider = document.getElementById('igSlider');
+      const prev = document.querySelector('.ig-prev');
+      const next = document.querySelector('.ig-next');
+      if (!slider || !prev || !next) return;
+      let pos = 0;
+      const cardW = slider.querySelector('.ig-card')?.offsetWidth || 320;
+      const gap = 16;
+      const step = cardW + gap;
+      const maxScroll = slider.scrollWidth - slider.parentElement.offsetWidth;
+
+      function update() {
+        slider.style.transform = `translateX(-${pos}px)`;
+        prev.classList.toggle('opacity-0', pos <= 0);
+        prev.classList.toggle('pointer-events-none', pos <= 0);
+        next.classList.toggle('opacity-0', pos >= maxScroll);
+        next.classList.toggle('pointer-events-none', pos >= maxScroll);
+      }
+      next.addEventListener('click', () => { pos = Math.min(pos + step, maxScroll); update(); });
+      prev.addEventListener('click', () => { pos = Math.max(pos - step, 0); update(); });
+      update();
+    })();
+
     // Athlete card expand/collapse
     document.querySelectorAll('.athlete-card').forEach(card => {
       card.addEventListener('click', () => {
