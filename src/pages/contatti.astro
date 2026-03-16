@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE, ATHLETES } from '../data/site.js';
 const base = '/recastello';
+// Cloudflare Worker endpoint — form submissions → GitHub Issues
+const WORKER_URL = 'https://recastello-forms.micmer-git.workers.dev';
 ---
 
 <BaseLayout
@@ -31,7 +33,7 @@ const base = '/recastello';
         <h2 class="font-display text-2xl font-bold text-brand-dark mb-2 reveal">Contatto Generale</h2>
         <p class="text-brand-dark/60 text-sm mb-8 reveal reveal-delay-1">Per iscrizioni, sponsorizzazioni, informazioni sulla societa.</p>
 
-        <form id="contactForm" class="space-y-5" action={`mailto:${SITE.contacts.email}`} method="POST" enctype="text/plain">
+        <form id="contactForm" class="space-y-5">
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label for="c-name" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Nome</label>
@@ -201,51 +203,58 @@ const base = '/recastello';
 
 </BaseLayout>
 
-<script>
-  // Athlete form submission → saves to localStorage for weekly processing + sends email
-  const form = document.getElementById('athleteForm');
-  const successEl = document.getElementById('athleteSuccess');
-  const submitBtn = document.getElementById('athleteSubmitBtn');
+<script define:vars={{ WORKER_URL }}>
+  const workerUrl = WORKER_URL;
 
-  form?.addEventListener('submit', (e) => {
+  // Generic form submit handler → POST to Cloudflare Worker → GitHub Issue
+  async function submitToGitHub(formEl, type, successEl, submitBtn) {
+    const formData = new FormData(formEl);
+    const payload = { _type: type };
+    for (const [k, v] of formData.entries()) {
+      if (k !== 'foto') payload[k] = v; // skip file inputs (handled separately)
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Invio in corso...';
+
+    try {
+      const res = await fetch(workerUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        formEl.classList.add('hidden');
+        successEl?.classList.remove('hidden');
+      } else {
+        throw new Error(data.error || 'Errore invio');
+      }
+    } catch (err) {
+      alert('Errore nell\'invio. Riprova o contattaci direttamente a info@larecastello.it');
+      submitBtn.disabled = false;
+      submitBtn.textContent = type === 'risultato' ? 'Invia risultato' : 'Invia messaggio';
+    }
+  }
+
+  // Contact form
+  const contactForm = document.getElementById('contactForm');
+  contactForm?.addEventListener('submit', (e) => {
     e.preventDefault();
+    const successDiv = document.createElement('div');
+    successDiv.className = 'bg-brand-green/10 border-2 border-brand-green p-5 text-center';
+    successDiv.innerHTML = '<p class="font-display text-lg font-bold text-brand-green mb-1">Messaggio inviato!</p><p class="text-sm text-brand-dark/60">Ti risponderemo il prima possibile. Grazie!</p>';
+    successDiv.classList.add('hidden');
+    contactForm.parentElement.appendChild(successDiv);
+    submitToGitHub(contactForm, 'contatto', successDiv, contactForm.querySelector('button[type="submit"]'));
+  });
 
-    const formData = new FormData(form);
-    const submission = {
-      nome: formData.get('nome'),
-      cognome: formData.get('cognome'),
-      gara: formData.get('gara'),
-      luogo: formData.get('luogo'),
-      data: formData.get('data'),
-      posizione: formData.get('posizione'),
-      tempo: formData.get('tempo'),
-      racconto: formData.get('racconto'),
-      instagram: formData.get('instagram'),
-      submittedAt: new Date().toISOString(),
-    };
-
-    // Save to localStorage
-    const stored = JSON.parse(localStorage.getItem('recastello_submissions') || '[]');
-    stored.push(submission);
-    localStorage.setItem('recastello_submissions', JSON.stringify(stored));
-
-    // Also compose mailto for immediate delivery
-    const subject = encodeURIComponent(`Risultato Gara: ${submission.gara} — ${submission.nome} ${submission.cognome}`);
-    const body = encodeURIComponent(
-      `Nome: ${submission.nome} ${submission.cognome}\n` +
-      `Gara: ${submission.gara}\n` +
-      `Luogo: ${submission.luogo}\n` +
-      `Data: ${submission.data}\n` +
-      `Posizione: ${submission.posizione || 'n/a'}\n` +
-      `Tempo: ${submission.tempo || 'n/a'}\n` +
-      `Instagram: ${submission.instagram ? '@' + submission.instagram : 'non indicato'}\n\n` +
-      `Racconto:\n${submission.racconto}\n\n` +
-      `(Foto da allegare separatamente)`
-    );
-    window.open(`mailto:info@larecastello.it?subject=${subject}&body=${body}`, '_self');
-
-    // Show success
-    form.classList.add('hidden');
-    successEl?.classList.remove('hidden');
+  // Athlete result form
+  const athleteForm = document.getElementById('athleteForm');
+  const athleteSuccess = document.getElementById('athleteSuccess');
+  const athleteSubmitBtn = document.getElementById('athleteSubmitBtn');
+  athleteForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    submitToGitHub(athleteForm, 'risultato', athleteSuccess, athleteSubmitBtn);
   });
 </script>
