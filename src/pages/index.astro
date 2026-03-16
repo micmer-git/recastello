@@ -239,8 +239,17 @@ const base = '/recastello';
               </div>
               <div class="p-5">
                 <h3 class="font-display text-lg font-bold text-brand-dark mb-1 flex items-center justify-between">
-                  {athlete.name}
-                  <svg class="w-4 h-4 text-brand-green athlete-chevron transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                  <a href={`${base}/atleta/${athlete.id}/`} class="hover:text-brand-green transition-colors" onclick="event.stopPropagation()">
+                    {athlete.name}
+                  </a>
+                  <span class="flex items-center gap-2">
+                    {athlete.instagram && (
+                      <a href={`https://www.instagram.com/${athlete.instagram}/`} target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="text-brand-dark/30 hover:text-brand-green transition-colors" aria-label={`Instagram @${athlete.instagram}`}>
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg>
+                      </a>
+                    )}
+                    <svg class="w-4 h-4 text-brand-green athlete-chevron transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                  </span>
                 </h3>
                 <p class="text-sm text-brand-dark/60 leading-relaxed mb-0">{athlete.palmares}</p>
               </div>
@@ -267,7 +276,7 @@ const base = '/recastello';
                     <p class="text-xs text-brand-dark/40 italic">Risultati in aggiornamento</p>
                   )}
                   {results.length > 8 && (
-                    <a href={`${base}/storia/`} class="inline-block mt-3 text-xs font-bold text-brand-green hover:underline">
+                    <a href={`${base}/risultati/`} class="inline-block mt-3 text-xs font-bold text-brand-green hover:underline">
                       Vedi tutti i risultati →
                     </a>
                   )}
@@ -279,7 +288,7 @@ const base = '/recastello';
       </div>
 
       <div class="text-center mt-10 reveal reveal-delay-4">
-        <a href={`${base}/storia/`} class="inline-flex items-center gap-2 px-7 py-3 bg-brand-dark text-white font-bold text-sm tracking-wider uppercase border-2 border-brand-dark hover:bg-brand-green hover:border-brand-green transition-all">
+        <a href={`${base}/risultati/`} class="inline-flex items-center gap-2 px-7 py-3 bg-brand-dark text-white font-bold text-sm tracking-wider uppercase border-2 border-brand-dark hover:bg-brand-green hover:border-brand-green transition-all">
           Tutta la storia dei risultati →
         </a>
       </div>
@@ -413,7 +422,7 @@ const base = '/recastello';
       })}
 
       <div class="text-center mt-12 reveal reveal-delay-4">
-        <a href={`${base}/storia/`} class="inline-flex items-center gap-2 px-7 py-3 bg-brand-green text-white font-bold text-sm tracking-wider uppercase border-2 border-brand-green hover:bg-transparent hover:text-brand-green transition-all">
+        <a href={`${base}/risultati/`} class="inline-flex items-center gap-2 px-7 py-3 bg-brand-green text-white font-bold text-sm tracking-wider uppercase border-2 border-brand-green hover:bg-transparent hover:text-brand-green transition-all">
           Archivio completo risultati
         </a>
       </div>

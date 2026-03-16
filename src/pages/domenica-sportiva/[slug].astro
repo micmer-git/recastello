@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { BLOG_POSTS, ATHLETES } from '../../data/site.js';
+
+export function getStaticPaths() {
+  return BLOG_POSTS.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const base = '/recastello';
+const athleteMap = new Map(ATHLETES.map(a => [a.id, a]));
+const dateObj = new Date(post.date + 'T12:00:00');
+const dayStr = dateObj.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<BaseLayout
+  title={`${post.title} — La Recastello`}
+  description={post.intro}
+>
+
+  <article class="max-w-3xl mx-auto px-5 py-16 md:py-24">
+    <!-- Header -->
+    <div class="mb-12">
+      <a href={`${base}/domenica-sportiva/`} class="inline-flex items-center gap-1 text-xs font-bold text-brand-green uppercase tracking-wider hover:underline mb-6">
+        ← La Domenica Sportiva
+      </a>
+      <time class="block text-sm font-bold tracking-wider uppercase text-brand-dark/40 mb-3" datetime={post.date}>{dayStr}</time>
+      <h1 class="font-display text-[clamp(2rem,6vw,3.5rem)] font-bold text-brand-dark leading-tight mb-6">
+        {post.title}
+      </h1>
+      <p class="text-lg text-brand-dark/70 leading-relaxed">{post.intro}</p>
+    </div>
+
+    <!-- Divider -->
+    <div class="h-1 w-16 bg-brand-green mb-12"></div>
+
+    <!-- Results -->
+    <div class="space-y-10">
+      {post.results.map(r => {
+        const athlete = r.athleteId ? athleteMap.get(r.athleteId) : null;
+        return (
+          <div class="bg-white border-2 border-brand-dark/10 p-6 md:p-8">
+            <div class="flex items-start gap-4 mb-4">
+              {r.position && (
+                <span class={`flex-shrink-0 w-10 h-10 flex items-center justify-center text-lg font-bold ${
+                  r.position === 1 ? 'bg-yellow-400 text-yellow-900' :
+                  r.position === 2 ? 'bg-gray-300 text-gray-700' :
+                  r.position === 3 ? 'bg-amber-600 text-white' :
+                  'bg-brand-dark/10 text-brand-dark'
+                }`}>
+                  {r.position}
+                </span>
+              )}
+              <div class="flex-1">
+                <h3 class="font-display text-xl font-bold text-brand-dark mb-1">
+                  {athlete ? (
+                    <a href={`${base}/atleta/${athlete.id}/`} class="text-brand-dark hover:text-brand-green transition-colors">
+                      {r.athlete}
+                    </a>
+                  ) : r.athlete}
+                  {athlete?.instagram && (
+                    <a href={`https://www.instagram.com/${athlete.instagram}/`} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 ml-2 text-xs font-normal text-brand-dark/40 hover:text-brand-green transition-colors">
+                      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg>
+                      @{athlete.instagram}
+                    </a>
+                  )}
+                </h3>
+                <p class="text-xs text-brand-green font-bold tracking-wider uppercase">{r.race} — {r.location}</p>
+              </div>
+            </div>
+            <p class="text-sm text-brand-dark/70 leading-relaxed">{r.text}</p>
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Footer CTA -->
+    <div class="mt-16 bg-brand-cream border-2 border-brand-dark/10 p-8 text-center">
+      <p class="font-display text-lg font-bold text-brand-dark mb-2">Hai gareggiato anche tu questo weekend?</p>
+      <p class="text-sm text-brand-dark/60 mb-6">Invia il tuo risultato e le tue foto per la prossima Domenica Sportiva.</p>
+      <a href={`${base}/contatti/`} class="inline-flex items-center gap-2 px-7 py-3 bg-brand-green text-white font-bold text-sm tracking-wider uppercase border-2 border-brand-green hover:bg-brand-dark hover:border-brand-dark transition-all">
+        Invia risultato
+      </a>
+    </div>
+  </article>
+
+</BaseLayout>

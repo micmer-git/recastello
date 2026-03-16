@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { BLOG_POSTS, ATHLETES } from '../../data/site.js';
+const base = '/recastello';
+const posts = [...BLOG_POSTS].sort((a, b) => b.date.localeCompare(a.date));
+const athleteMap = new Map(ATHLETES.map(a => [a.id, a]));
+---
+
+<BaseLayout
+  title="La Domenica Sportiva — La Recastello"
+  description="Il blog settimanale della ASD La Recastello: risultati, racconti e foto dai weekend di gara dei nostri atleti."
+>
+
+  <!-- Hero -->
+  <section class="relative py-28 md:py-36 px-5 bg-brand-dark text-white overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/90 to-brand-green/20"></div>
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+      <p class="text-brand-green text-xs font-bold tracking-[0.25em] uppercase mb-4 reveal">Blog Settimanale</p>
+      <h1 class="font-display text-[clamp(2rem,7vw,4rem)] font-bold leading-tight mb-6 reveal reveal-delay-1">
+        La Domenica Sportiva
+      </h1>
+      <p class="text-white/60 text-lg max-w-xl mx-auto reveal reveal-delay-2">
+        Ogni settimana il resoconto dei risultati dei nostri atleti. Racconti dal campo, foto e classifiche.
+      </p>
+    </div>
+  </section>
+
+  <!-- Posts listing -->
+  <section class="py-16 md:py-24 px-5">
+    <div class="max-w-3xl mx-auto">
+      {posts.length > 0 ? posts.map((post, i) => {
+        const dateObj = new Date(post.date + 'T12:00:00');
+        const dayStr = dateObj.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+        const podiums = post.results.filter(r => r.position && r.position <= 3);
+        return (
+          <a href={`${base}/domenica-sportiva/${post.slug}/`} class={`block mb-8 no-underline group reveal reveal-delay-${Math.min(i + 1, 4)}`}>
+            <article class="bg-white border-2 border-brand-dark shadow-[5px_5px_0_#1A1A1A] group-hover:translate-x-[3px] group-hover:translate-y-[3px] group-hover:shadow-[2px_2px_0_#1A1A1A] transition-all p-6 md:p-8">
+              <div class="flex items-center gap-3 mb-4">
+                <time class="text-xs font-bold tracking-wider uppercase text-brand-dark/40" datetime={post.date}>{dayStr}</time>
+                {podiums.length > 0 && (
+                  <span class="bg-brand-green/10 text-brand-green text-[0.65rem] font-bold px-2 py-0.5 tracking-wider uppercase">
+                    {podiums.length} podi
+                  </span>
+                )}
+              </div>
+              <h2 class="font-display text-xl md:text-2xl font-bold text-brand-dark mb-3 group-hover:text-brand-green transition-colors">
+                {post.title}
+              </h2>
+              <p class="text-sm text-brand-dark/60 leading-relaxed mb-4">{post.intro}</p>
+
+              {/* Athletes involved */}
+              <div class="flex flex-wrap gap-2">
+                {post.results.map(r => {
+                  const athlete = r.athleteId ? athleteMap.get(r.athleteId) : null;
+                  return (
+                    <span class="inline-flex items-center gap-1.5 bg-brand-dark/5 px-3 py-1 text-xs font-medium text-brand-dark">
+                      {r.position && r.position <= 3 && (
+                        <span class={`w-4 h-4 flex items-center justify-center rounded-full text-[0.5rem] font-bold ${
+                          r.position === 1 ? 'bg-yellow-400 text-yellow-900' :
+                          r.position === 2 ? 'bg-gray-300 text-gray-700' :
+                          'bg-amber-600 text-white'
+                        }`}>{r.position}</span>
+                      )}
+                      {r.athlete}
+                      {athlete?.instagram && (
+                        <svg class="w-3 h-3 text-brand-dark/30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg>
+                      )}
+                    </span>
+                  );
+                })}
+              </div>
+
+              <div class="mt-4 text-xs font-bold text-brand-green uppercase tracking-wider group-hover:underline">
+                Leggi tutto →
+              </div>
+            </article>
+          </a>
+        );
+      }) : (
+        <div class="text-center py-16">
+          <p class="font-display text-2xl font-bold text-brand-dark/30 mb-4">Prossimamente</p>
+          <p class="text-brand-dark/50 text-sm max-w-md mx-auto mb-6">
+            Il primo numero della Domenica Sportiva arrivera presto.
+            Sei un atleta? Invia i tuoi risultati per essere incluso!
+          </p>
+          <a href={`${base}/contatti/`} class="inline-flex items-center gap-2 px-6 py-3 bg-brand-green text-white font-bold text-sm tracking-wider uppercase border-2 border-brand-green hover:bg-transparent hover:text-brand-green transition-all">
+            Invia il tuo risultato
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-12 px-5 bg-brand-cream">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-brand-dark/60 text-sm mb-4">Hai gareggiato questo weekend? Raccontacelo!</p>
+      <a href={`${base}/contatti/`} class="inline-flex items-center gap-2 px-7 py-3 bg-brand-dark text-white font-bold text-sm tracking-wider uppercase border-2 border-brand-dark hover:bg-brand-green hover:border-brand-green transition-all">
+        Invia risultato
+      </a>
+    </div>
+  </section>
+
+  <!-- Back link -->
+  <div class="text-center py-12">
+    <a href={`${base}/`} class="inline-flex items-center gap-2 text-sm font-bold text-brand-green hover:underline">
+      ← Torna alla home
+    </a>
+  </div>
+
+</BaseLayout>

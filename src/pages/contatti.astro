@@ -1,0 +1,251 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, ATHLETES } from '../data/site.js';
+const base = '/recastello';
+---
+
+<BaseLayout
+  title="Contatti — La Recastello"
+  description="Contatta la ASD La Recastello. Modulo di contatto generale e invio risultati gara per gli atleti."
+>
+
+  <!-- Hero -->
+  <section class="relative py-28 md:py-36 px-5 bg-brand-dark text-white overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/90 to-brand-green/20"></div>
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+      <p class="text-brand-green text-xs font-bold tracking-[0.25em] uppercase mb-4 reveal">Scrivici</p>
+      <h1 class="font-display text-[clamp(2.5rem,8vw,4.5rem)] font-bold leading-tight mb-6 reveal reveal-delay-1">
+        Contatti
+      </h1>
+      <p class="text-white/60 text-lg max-w-xl mx-auto reveal reveal-delay-2">
+        Per informazioni, iscrizioni, collaborazioni o per inviare i tuoi risultati di gara.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-6xl mx-auto px-5 py-16 md:py-24">
+    <div class="grid md:grid-cols-2 gap-12 md:gap-16">
+
+      <!-- ========== CONTACT FORM ========== -->
+      <div>
+        <h2 class="font-display text-2xl font-bold text-brand-dark mb-2 reveal">Contatto Generale</h2>
+        <p class="text-brand-dark/60 text-sm mb-8 reveal reveal-delay-1">Per iscrizioni, sponsorizzazioni, informazioni sulla societa.</p>
+
+        <form id="contactForm" class="space-y-5" action={`mailto:${SITE.contacts.email}`} method="POST" enctype="text/plain">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="c-name" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Nome</label>
+              <input type="text" id="c-name" name="nome" required
+                class="w-full px-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark placeholder:text-brand-dark/30 focus:border-brand-green focus:outline-none transition-colors"
+                placeholder="Mario" />
+            </div>
+            <div>
+              <label for="c-surname" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Cognome</label>
+              <input type="text" id="c-surname" name="cognome" required
+                class="w-full px-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark placeholder:text-brand-dark/30 focus:border-brand-green focus:outline-none transition-colors"
+                placeholder="Rossi" />
+            </div>
+          </div>
+          <div>
+            <label for="c-email" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Email</label>
+            <input type="email" id="c-email" name="email" required
+              class="w-full px-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark placeholder:text-brand-dark/30 focus:border-brand-green focus:outline-none transition-colors"
+              placeholder="mario@email.com" />
+          </div>
+          <div>
+            <label for="c-subject" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Oggetto</label>
+            <select id="c-subject" name="oggetto"
+              class="w-full px-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark focus:border-brand-green focus:outline-none transition-colors">
+              <option value="info">Informazioni generali</option>
+              <option value="iscrizione">Iscrizione societa</option>
+              <option value="sponsor">Sponsorizzazione / Partnership</option>
+              <option value="gara">Info gara Memorial Peket</option>
+              <option value="altro">Altro</option>
+            </select>
+          </div>
+          <div>
+            <label for="c-msg" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Messaggio</label>
+            <textarea id="c-msg" name="messaggio" rows="5" required
+              class="w-full px-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark placeholder:text-brand-dark/30 focus:border-brand-green focus:outline-none transition-colors resize-y"
+              placeholder="Scrivi il tuo messaggio..."></textarea>
+          </div>
+          <button type="submit"
+            class="w-full px-7 py-3.5 bg-brand-dark text-white font-bold text-sm tracking-wider uppercase border-2 border-brand-dark hover:bg-brand-green hover:border-brand-green transition-all">
+            Invia messaggio
+          </button>
+        </form>
+
+        <!-- Contact info -->
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-brand-cream p-5 border-2 border-brand-dark/10">
+            <span class="block text-[0.65rem] font-bold tracking-wider uppercase text-brand-green mb-1">Email</span>
+            <a href={`mailto:${SITE.contacts.email}`} class="text-sm font-medium text-brand-dark hover:text-brand-green transition-colors">{SITE.contacts.email}</a>
+          </div>
+          <div class="bg-brand-cream p-5 border-2 border-brand-dark/10">
+            <span class="block text-[0.65rem] font-bold tracking-wider uppercase text-brand-green mb-1">Sede</span>
+            <p class="text-sm text-brand-dark">{SITE.contacts.address}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== ATHLETE RESULT SUBMISSION ========== -->
+      <div>
+        <div class="bg-brand-green/5 border-2 border-brand-green/30 p-1 mb-8">
+          <div class="bg-brand-green/10 px-5 py-3">
+            <h2 class="font-display text-2xl font-bold text-brand-dark mb-1">Invia il tuo Risultato</h2>
+            <p class="text-brand-dark/60 text-sm">Sei un atleta della Recastello? Invia i tuoi risultati per "La Domenica Sportiva".</p>
+          </div>
+        </div>
+
+        <form id="athleteForm" class="space-y-5">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="a-name" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Nome *</label>
+              <input type="text" id="a-name" name="nome" required
+                class="w-full px-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark placeholder:text-brand-dark/30 focus:border-brand-green focus:outline-none transition-colors"
+                placeholder="Nome" />
+            </div>
+            <div>
+              <label for="a-surname" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Cognome *</label>
+              <input type="text" id="a-surname" name="cognome" required
+                class="w-full px-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark placeholder:text-brand-dark/30 focus:border-brand-green focus:outline-none transition-colors"
+                placeholder="Cognome" />
+            </div>
+          </div>
+
+          <div>
+            <label for="a-race" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Nome Gara *</label>
+            <input type="text" id="a-race" name="gara" required
+              class="w-full px-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark placeholder:text-brand-dark/30 focus:border-brand-green focus:outline-none transition-colors"
+              placeholder="Es. Trofeo Vanoni, Memorial Peket..." />
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="a-location" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Luogo *</label>
+              <input type="text" id="a-location" name="luogo" required
+                class="w-full px-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark placeholder:text-brand-dark/30 focus:border-brand-green focus:outline-none transition-colors"
+                placeholder="Es. Morbegno (SO)" />
+            </div>
+            <div>
+              <label for="a-date" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Data Gara *</label>
+              <input type="date" id="a-date" name="data"
+                class="w-full px-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark focus:border-brand-green focus:outline-none transition-colors" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="a-position" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Posizione</label>
+              <input type="number" id="a-position" name="posizione" min="1"
+                class="w-full px-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark placeholder:text-brand-dark/30 focus:border-brand-green focus:outline-none transition-colors"
+                placeholder="Es. 3" />
+            </div>
+            <div>
+              <label for="a-time" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Tempo</label>
+              <input type="text" id="a-time" name="tempo"
+                class="w-full px-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark placeholder:text-brand-dark/30 focus:border-brand-green focus:outline-none transition-colors"
+                placeholder="Es. 1:23:45" />
+            </div>
+          </div>
+
+          <div>
+            <label for="a-text" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Racconto / Note *</label>
+            <textarea id="a-text" name="racconto" rows="4" required
+              class="w-full px-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark placeholder:text-brand-dark/30 focus:border-brand-green focus:outline-none transition-colors resize-y"
+              placeholder="Racconta la tua gara in poche righe: come e andata, il percorso, le sensazioni..."></textarea>
+          </div>
+
+          <div>
+            <label for="a-photos" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Foto (max 3)</label>
+            <div class="relative">
+              <input type="file" id="a-photos" name="foto" accept="image/*" multiple
+                class="w-full px-4 py-3 border-2 border-dashed border-brand-dark/20 bg-brand-cream text-sm text-brand-dark file:mr-4 file:py-1 file:px-3 file:border-0 file:text-xs file:font-bold file:bg-brand-green file:text-white file:tracking-wider file:uppercase hover:border-brand-green/50 transition-colors cursor-pointer" />
+            </div>
+            <p class="text-[0.65rem] text-brand-dark/40 mt-1">JPG o PNG, max 5MB ciascuna. Le foto migliori saranno pubblicate nel blog settimanale.</p>
+          </div>
+
+          <div>
+            <label for="a-ig" class="block text-xs font-bold tracking-wider uppercase text-brand-dark/60 mb-1.5">Instagram (opzionale)</label>
+            <div class="flex items-center">
+              <span class="px-3 py-3 bg-brand-dark/5 border-2 border-r-0 border-brand-dark/20 text-sm text-brand-dark/40">@</span>
+              <input type="text" id="a-ig" name="instagram"
+                class="w-full px-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark placeholder:text-brand-dark/30 focus:border-brand-green focus:outline-none transition-colors"
+                placeholder="il_tuo_handle" />
+            </div>
+            <p class="text-[0.65rem] text-brand-dark/40 mt-1">Se compilato, il tuo profilo IG sara linkato nel post settimanale.</p>
+          </div>
+
+          <button type="submit" id="athleteSubmitBtn"
+            class="w-full px-7 py-3.5 bg-brand-green text-white font-bold text-sm tracking-wider uppercase border-2 border-brand-green hover:bg-brand-dark hover:border-brand-dark transition-all">
+            Invia risultato
+          </button>
+
+          <!-- Success message -->
+          <div id="athleteSuccess" class="hidden bg-brand-green/10 border-2 border-brand-green p-5 text-center">
+            <p class="font-display text-lg font-bold text-brand-green mb-1">Risultato inviato!</p>
+            <p class="text-sm text-brand-dark/60">Il tuo risultato sara incluso nella prossima "Domenica Sportiva". Grazie!</p>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Back link -->
+  <div class="text-center pb-16">
+    <a href={`${base}/`} class="inline-flex items-center gap-2 text-sm font-bold text-brand-green hover:underline">
+      ← Torna alla home
+    </a>
+  </div>
+
+</BaseLayout>
+
+<script>
+  // Athlete form submission → saves to localStorage for weekly processing + sends email
+  const form = document.getElementById('athleteForm');
+  const successEl = document.getElementById('athleteSuccess');
+  const submitBtn = document.getElementById('athleteSubmitBtn');
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const submission = {
+      nome: formData.get('nome'),
+      cognome: formData.get('cognome'),
+      gara: formData.get('gara'),
+      luogo: formData.get('luogo'),
+      data: formData.get('data'),
+      posizione: formData.get('posizione'),
+      tempo: formData.get('tempo'),
+      racconto: formData.get('racconto'),
+      instagram: formData.get('instagram'),
+      submittedAt: new Date().toISOString(),
+    };
+
+    // Save to localStorage
+    const stored = JSON.parse(localStorage.getItem('recastello_submissions') || '[]');
+    stored.push(submission);
+    localStorage.setItem('recastello_submissions', JSON.stringify(stored));
+
+    // Also compose mailto for immediate delivery
+    const subject = encodeURIComponent(`Risultato Gara: ${submission.gara} — ${submission.nome} ${submission.cognome}`);
+    const body = encodeURIComponent(
+      `Nome: ${submission.nome} ${submission.cognome}\n` +
+      `Gara: ${submission.gara}\n` +
+      `Luogo: ${submission.luogo}\n` +
+      `Data: ${submission.data}\n` +
+      `Posizione: ${submission.posizione || 'n/a'}\n` +
+      `Tempo: ${submission.tempo || 'n/a'}\n` +
+      `Instagram: ${submission.instagram ? '@' + submission.instagram : 'non indicato'}\n\n` +
+      `Racconto:\n${submission.racconto}\n\n` +
+      `(Foto da allegare separatamente)`
+    );
+    window.open(`mailto:info@larecastello.it?subject=${subject}&body=${body}`, '_self');
+
+    // Show success
+    form.classList.add('hidden');
+    successEl?.classList.remove('hidden');
+  });
+</script>

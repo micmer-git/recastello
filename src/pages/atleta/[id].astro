@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ATHLETES, RESULTS_2024, RESULTS_ARCHIVE, getAthleteResults } from '../../data/site.js';
+
+export function getStaticPaths() {
+  return ATHLETES.map(athlete => ({
+    params: { id: athlete.id },
+    props: { athlete },
+  }));
+}
+
+const { athlete } = Astro.props;
+const base = '/recastello';
+
+// Combine all results for this athlete
+const allResults = [...RESULTS_2024, ...RESULTS_ARCHIVE];
+const results = allResults
+  .filter(r => r.athlete.toLowerCase().includes(athlete.name.toLowerCase()))
+  .sort((a, b) => b.date.localeCompare(a.date));
+
+const podiums = results.filter(r => r.podium);
+const wins = results.filter(r => r.position === 1);
+const age = new Date().getFullYear() - athlete.born;
+---
+
+<BaseLayout
+  title={`${athlete.name} — La Recastello`}
+  description={`${athlete.name}, atleta della ASD La Recastello. ${athlete.specialty}. ${athlete.palmares}`}
+>
+
+  <!-- Hero -->
+  <section class="relative py-28 md:py-36 px-5 bg-brand-dark text-white overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/90 to-brand-green/20"></div>
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+      <div class="w-24 h-24 bg-brand-green/20 rounded-full flex items-center justify-center mx-auto mb-6">
+        <span class="font-cursive text-4xl text-brand-green">{athlete.name.charAt(0)}</span>
+      </div>
+      <h1 class="font-display text-[clamp(2rem,7vw,4rem)] font-bold leading-tight mb-3 reveal">
+        {athlete.name}
+      </h1>
+      <p class="text-brand-green text-sm font-bold tracking-wider uppercase mb-4 reveal reveal-delay-1">{athlete.specialty}</p>
+      <p class="text-white/60 text-base max-w-lg mx-auto reveal reveal-delay-2">{athlete.palmares}</p>
+
+      {athlete.instagram && (
+        <a href={`https://www.instagram.com/${athlete.instagram}/`} target="_blank" rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 mt-6 px-5 py-2 border border-white/20 text-white/60 text-sm hover:text-brand-green hover:border-brand-green transition-colors reveal reveal-delay-3">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg>
+          @{athlete.instagram}
+        </a>
+      )}
+
+      <!-- Stats -->
+      <div class="flex justify-center gap-6 mt-8 reveal reveal-delay-3">
+        <div class="text-center">
+          <span class="font-display text-3xl font-bold text-brand-green">{results.length}</span>
+          <span class="block text-xs text-white/40 uppercase tracking-wider">Risultati</span>
+        </div>
+        <div class="text-center">
+          <span class="font-display text-3xl font-bold text-brand-green">{podiums.length}</span>
+          <span class="block text-xs text-white/40 uppercase tracking-wider">Podi</span>
+        </div>
+        <div class="text-center">
+          <span class="font-display text-3xl font-bold text-brand-green">{wins.length}</span>
+          <span class="block text-xs text-white/40 uppercase tracking-wider">Vittorie</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section class="py-16 md:py-24 px-5">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="font-display text-2xl font-bold text-brand-dark mb-8">Tutti i Risultati</h2>
+
+      {results.length > 0 ? (
+        <div class="space-y-3">
+          {results.map(r => {
+            const dateObj = new Date(r.date + 'T12:00:00');
+            const dayStr = dateObj.toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' });
+            return (
+              <div class={`flex items-center gap-4 p-4 border-2 ${r.podium ? 'border-brand-green/30 bg-brand-green/5' : 'border-brand-dark/10 bg-white'}`}>
+                <span class={`flex-shrink-0 w-8 h-8 flex items-center justify-center text-sm font-bold ${
+                  r.position === 1 ? 'bg-yellow-400 text-yellow-900' :
+                  r.position === 2 ? 'bg-gray-300 text-gray-700' :
+                  r.position === 3 ? 'bg-amber-600 text-white' :
+                  r.podium ? 'bg-brand-green text-white' :
+                  'bg-brand-dark/10 text-brand-dark/50'
+                }`}>
+                  {r.position}
+                </span>
+                <div class="flex-1 min-w-0">
+                  <p class="font-medium text-sm text-brand-dark truncate">{r.race}</p>
+                  {r.note && <p class="text-xs text-brand-green">{r.note}</p>}
+                </div>
+                <time class="text-xs text-brand-dark/40 flex-shrink-0" datetime={r.date}>{dayStr}</time>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <p class="text-brand-dark/40 text-sm italic">Risultati in aggiornamento.</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Back links -->
+  <div class="flex justify-center gap-6 pb-16">
+    <a href={`${base}/risultati/`} class="text-sm font-bold text-brand-green hover:underline">← Tutti i risultati</a>
+    <a href={`${base}/`} class="text-sm font-bold text-brand-dark/40 hover:text-brand-green hover:underline">Home</a>
+  </div>
+
+</BaseLayout>

@@ -42,6 +42,7 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna / Vertical',
     palmares: 'Campione italiano sola salita 2025, Campione italiano Vertical Kilometer 2025, Nazionale azzurra',
     born: 1997,
+    instagram: 'andrea.elia_',
   },
   {
     id: 'isacco-costa',
@@ -49,6 +50,7 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna classica',
     palmares: 'Campione italiano corsa in montagna classica 2024 e 2025, Nazionale azzurra Europei Annecy 2024',
     born: 1998,
+    instagram: 'isacco_costa',
   },
   {
     id: 'vivien-bonzi',
@@ -56,6 +58,7 @@ export const ATHLETES = [
     specialty: 'Vertical / Corsa in montagna',
     palmares: 'Campionessa italiana Vertical Kilometer 2025, Nazionale azzurra Europei Annecy 2024',
     born: 1996,
+    instagram: 'vivienbonzi',
   },
   {
     id: 'beatrice-bianchi',
@@ -63,6 +66,7 @@ export const ATHLETES = [
     specialty: 'Corsa in montagna',
     palmares: 'Campionessa staffetta 2025, 1a assoluta Laghi Gemelli + record percorso Giro Creste 2024, Nazionale azzurra',
     born: 1999,
+    instagram: 'beatrice.bianchi_',
   },
   {
     id: 'alice-gaggi',
@@ -70,6 +74,7 @@ export const ATHLETES = [
     specialty: 'Trail running / Ultra',
     palmares: 'Capitana squadra femminile, 1a assoluta Lavaredo Ultra Trail 20km 2024, Nazionale azzurra Annecy 2024',
     born: 1987,
+    instagram: 'alice_gaggi',
   },
   {
     id: 'luca-magri',
@@ -351,4 +356,35 @@ export const DISCIPLINES = [
   { name: 'Sci Alpino', icon: '⛷️', desc: 'Sezione storica, gare regionali' },
   { name: 'Ciclismo', icon: '🚴', desc: 'Gazzaniga-Orezzo, Gazzaniga-Ganda' },
   { name: 'Maratona', icon: '🏅', desc: 'Settore master e veterani' },
+];
+
+// "La Domenica Sportiva" blog posts — generated weekly from athlete submissions
+export const BLOG_POSTS = [
+  {
+    slug: '2026-03-16-domenica-sportiva',
+    title: 'La Domenica Sportiva — 16 Marzo 2026',
+    date: '2026-03-16',
+    intro: 'Un weekend ricco di impegni per i colori verde della Recastello. Dalle valli bergamasche ai circuiti nazionali, ecco i risultati dei nostri atleti.',
+    results: [
+      { athlete: 'Andrea Elia', athleteId: 'andrea-elia', race: 'Trail del Resegone', location: 'Lecco', text: 'Terzo posto in una gara combattutissima, ottimo test in vista del Memorial Peket.', position: 3 },
+    ],
+  },
+];
+
+// Get blog post by slug
+export function getBlogPost(slug) {
+  return BLOG_POSTS.find(p => p.slug === slug);
+}
+
+// Club history milestones
+export const STORIA_MILESTONES = [
+  { year: 1952, title: 'Fondazione', text: 'Un gruppo di appassionati di montagna fonda la societa a Gazzaniga, nel cuore della Valle Seriana. Il primo nome: Gruppo Sportivo La Recastello.' },
+  { year: 1960, title: 'Prime gare ufficiali', text: 'Partecipazione ai primi campionati provinciali di corsa in montagna. La maglia verde inizia a farsi conoscere sui sentieri orobici.' },
+  { year: 1975, title: 'Primo titolo italiano', text: 'Arriva il primo titolo tricolore di societa, consacrando la Recastello tra le realta di riferimento della corsa in montagna italiana.' },
+  { year: 1980, title: 'Sezione sci alpino', text: 'Nasce la sezione sci alpino, ampliando la vocazione multisportiva della societa. Gare regionali e vivaio giovanile in pista.' },
+  { year: 1995, title: 'Radici Group title sponsor', text: 'La partnership con Radici Group segna una svolta: il club diventa ASD La Recastello Radici Group, con risorse per il vivaio e le trasferte internazionali.' },
+  { year: 2003, title: 'Memorial Peket', text: 'Prima edizione del Memorial Pietro Lanfranchi "Peket", la gara di sola salita Gazzaniga-Monte Poieto che diventa la gara di casa della societa.' },
+  { year: 2018, title: 'Successi internazionali', text: 'Eliana Patelli campionessa italiana maratona SF40, Ilaria Bianchi vice campionessa KV. La Recastello si afferma anche su distanze lunghe e su pista.' },
+  { year: 2024, title: 'Triplete ai campionati italiani', text: 'Isacco Costa e Vivien Bonzi campioni italiani assoluti a Casnigo. La societa vince il titolo individuale, la staffetta e il campionato di societa.' },
+  { year: 2025, title: 'Ori mondiali in Galles', text: 'Luca Magri e Beatrice Bianchi campioni del mondo in Galles. Andrea Elia campione italiano sola salita e vertical. La stagione piu vincente di sempre.' },
 ];
