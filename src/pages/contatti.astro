@@ -206,12 +206,37 @@ const WORKER_URL = 'https://recastello-forms.micmer-recastello.workers.dev';
 <script define:vars={{ WORKER_URL }}>
   const workerUrl = WORKER_URL;
 
-  // Generic form submit handler → POST to Cloudflare Worker → GitHub Issue
+  // Read file as base64 (strip the data:... prefix)
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64 = reader.result.split(',')[1]; // strip data:image/...;base64,
+        resolve({ name: file.name, data: base64 });
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Submit form → POST to Cloudflare Worker → GitHub Issue (with photos)
   async function submitToGitHub(formEl, type, successEl, submitBtn) {
     const formData = new FormData(formEl);
     const payload = { _type: type };
     for (const [k, v] of formData.entries()) {
-      if (k !== 'foto') payload[k] = v; // skip file inputs (handled separately)
+      if (k !== 'foto') payload[k] = v;
+    }
+
+    // Process photo files → base64
+    const fileInput = formEl.querySelector('input[type="file"]');
+    if (fileInput && fileInput.files.length > 0) {
+      submitBtn.textContent = 'Caricamento foto...';
+      const photos = [];
+      for (const file of Array.from(fileInput.files).slice(0, 3)) {
+        if (file.size > 5 * 1024 * 1024) continue; // skip >5MB
+        photos.push(await fileToBase64(file));
+      }
+      if (photos.length > 0) payload.photos = photos;
     }
 
     submitBtn.disabled = true;

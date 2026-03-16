@@ -582,7 +582,7 @@ export const BLOG_POSTS = [
         athleteId: 'michele-merelli',
         race: 'Corsa Campestre Bergamo',
         location: 'Bergamo',
-        text: 'Gara sul bagnato difficile, bel posto. Decimo posto in una giornata complicata dalla pioggia battente e dal terreno scivoloso. Un risultato solido che conferma la crescita costante nelle prove campestri.',
+        text: '"Gara sul bagnato difficile, bel posto" — cosi Michele racconta la sua campestre a Bergamo. Decimo in condizioni proibitive, con il fango che trasformava ogni curva in una lotteria. Un piazzamento che pesa piu di quanto dica il numero: sul bagnato servono gambe ma soprattutto testa, e Merelli non ha mai mollato. Il bel posto di cui parla e il Parco dei Colli, anfiteatro naturale che sotto la pioggia di marzo diventa un percorso da veri montanari — terreno ideale per chi e cresciuto sui sentieri delle Orobie.',
         position: 10,
       },
       {
