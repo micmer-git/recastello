@@ -249,6 +249,100 @@ export function getAllResultAthletes() {
   return names.sort();
 }
 
+// Archive results 2018-2023 — scraped from Google Sites archivio-articoli
+export const RESULTS_ARCHIVE = [
+  // ─── 2018 ───
+  { date: '2018-10-14', race: '521 Vertical', athlete: 'Pietro Lenzi', position: 1, note: '1° assoluto', podium: true, year: 2018 },
+  { date: '2018-10-14', race: '521 Vertical', athlete: 'Samantha Galassi', position: 1, note: '1a donne, 5a vittoria in 6 edizioni', podium: true, year: 2018 },
+  { date: '2018-10-14', race: '521 Vertical', athlete: 'Luca Magri', position: 3, podium: true, year: 2018 },
+  { date: '2018-10-07', race: 'Campionato Italiano KV (Chiavenna)', athlete: 'Ilaria Bianchi', position: 2, note: 'Vice campionessa italiana', podium: true, year: 2018 },
+  { date: '2018-10-07', race: 'Campionato Italiano KV (Chiavenna)', athlete: 'Luciano Merla', position: 1, note: 'Campione italiano Master C', podium: true, year: 2018 },
+  { date: '2018-09-23', race: 'VGV Vertical Valgandino', athlete: 'Samantha Galassi', position: 1, note: '1a donne', podium: true, year: 2018 },
+  { date: '2018-09-23', race: 'VGV Vertical Valgandino', athlete: 'Pietro Lenzi', position: 2, podium: true, year: 2018 },
+  { date: '2018-09-17', race: 'Trofeo Le Marmitte dei Giganti (Chiavenna)', athlete: 'Roberta Ciappini', position: 1, note: '1a donne', podium: true, year: 2018 },
+  { date: '2018-09-17', race: 'Vall\'Adamè Vertical', athlete: 'Luca Magri', position: 1, note: '1° assoluto', podium: true, year: 2018 },
+  { date: '2018-09-17', race: 'Bregagno Sky Race', athlete: 'Arianna Oregioni', position: 1, note: '1a assoluta', podium: true, year: 2018 },
+  { date: '2018-11-26', race: 'Mezza Maratona di Verona', athlete: 'Eliana Patelli', position: 1, note: '1a assoluta 1:19:08', podium: true, year: 2018 },
+  { date: '2018-11-16', race: 'Trofeo Vanoni', athlete: 'Roberta Ciappini', position: 5, year: 2018 },
+  { date: '2018-11-25', race: 'Mezza Maratona Padenghe', athlete: 'Luca Magri', position: 7, note: '1° italiano 1:08:25', year: 2018 },
+  // ─── 2019 ───
+  { date: '2019-12-08', race: 'Maratona di Sanremo', athlete: 'Marco Tiraboschi', position: 1, note: '1° assoluto 2:42:42 PB', podium: true, year: 2019 },
+  { date: '2019-11-10', race: 'Maratona di Ravenna (Campionato Italiano)', athlete: 'Eliana Patelli', position: 3, note: 'Campionessa italiana SF40, 2:45:13', podium: true, year: 2019 },
+  { date: '2019-11-29', race: 'Milano 10km', athlete: 'Luca Magri', position: 3, podium: true, year: 2019 },
+  { date: '2019-11-04', race: 'Crema 10km', athlete: 'Luca Magri', position: 1, note: '1° assoluto 30:33', podium: true, year: 2019 },
+  { date: '2019-10-28', race: 'Selvino Cronoday', athlete: 'Fabio Bazzana', position: 1, note: '1° assoluto', podium: true, year: 2019 },
+  { date: '2019-10-28', race: 'Trofeo Vanoni', athlete: 'Alice Gaggi', position: 9, year: 2019 },
+  // ─── 2020 ───
+  { date: '2020-10-25', race: 'Trofeo Vanoni (63a edizione)', athlete: 'Staffetta maschile', position: 7, note: 'Cassol-Cassol-Bacchion 1:36:39', year: 2020 },
+  { date: '2020-10-25', race: 'Trofeo Vanoni Master A', athlete: 'Ruga-Beltrami-Lanfranchi', position: 2, podium: true, year: 2020 },
+  { date: '2020-10-11', race: 'Campionato Italiano KV (Chiavenna-Lagunc)', athlete: 'Squadra maschile', position: 1, note: 'Titolo italiano a squadre', podium: true, year: 2020 },
+  { date: '2020-10-11', race: 'Campionato Italiano KV (Chiavenna-Lagunc)', athlete: 'Ilaria Bianchi', position: 3, note: '3a nazionale donne 40:20', podium: true, year: 2020 },
+  { date: '2020-01-26', race: 'Cinque Mulini Cross', athlete: 'Alice Gaggi', position: 16, year: 2020 },
+  // ─── 2021 ───
+  { date: '2021-08-07', race: 'Sierre-Zinal (Golden Trail / WMRA World Cup)', athlete: 'Alice Gaggi', position: 10, note: '10a donne 3:07:53', year: 2021 },
+  { date: '2021-08-07', race: 'Sierre-Zinal (Golden Trail / WMRA World Cup)', athlete: 'Fabio Ruga', position: 21, note: '2:43:33', year: 2021 },
+  { date: '2021-08-08', race: 'Cimbergo-Volano (Valle dei Segni Cup)', athlete: 'Iacopo Brasi', position: 1, note: '1° assoluto 25:24', podium: true, year: 2021 },
+  { date: '2021-08-18', race: 'Piz Tri Vertical (Malonno)', athlete: 'Fabio Ruga', position: 13, note: '1° di categoria', year: 2021 },
+  { date: '2021-08-18', race: 'Fletta Trail', athlete: 'Iacopo Brasi', position: 9, note: '1:31:54', year: 2021 },
+  { date: '2021-08-18', race: 'Fletta Trail', athlete: 'Beatrice Bianchi', position: 10, note: '1:54:17 donne', year: 2021 },
+  { date: '2021-08-18', race: 'Mini Reguzzo Skyrace (Ponte in Valtellina)', athlete: 'Katia Nana', position: 1, note: '1a assoluta 1:26:38', podium: true, year: 2021 },
+  { date: '2021-08-18', race: 'Campionato Regionale Long Distance', athlete: 'Iacopo Brasi', position: 2, podium: true, year: 2021 },
+  { date: '2021-08-18', race: 'Campionato Regionale Long Distance', athlete: 'Beatrice Bianchi', position: 3, note: '3a donne', podium: true, year: 2021 },
+  // ─── 2022 ───
+  { date: '2022-12-18', race: 'Maratonina Lemine', athlete: 'Luca Magri', position: 1, note: '1° assoluto 1:08:54', podium: true, year: 2022 },
+  { date: '2022-12-18', race: 'Maratonina Lemine', athlete: 'Ilaria Bianchi', position: 2, note: '2a donne', podium: true, year: 2022 },
+  { date: '2022-12-03', race: 'Maratona di Lanzarote', athlete: 'Iacopo Brasi', position: 2, note: '2° assoluto 2:34:24', podium: true, year: 2022 },
+  { date: '2022-11-27', race: 'Ganten Milano21 10km', athlete: 'Luca Magri', position: 1, note: '1° assoluto', podium: true, year: 2022 },
+  { date: '2022-11-27', race: 'Mezza Maratona Palmanova', athlete: 'Isacco Costa', position: 4, note: 'PB 1:05:38', year: 2022 },
+  { date: '2022-11-20', race: 'Restena Trail 21km', athlete: 'Roberto Cassol', position: 1, note: '1° assoluto', podium: true, year: 2022 },
+  { date: '2022-12-11', race: 'Trail di Portofino 21km', athlete: 'Simone Tampini', position: 3, podium: true, year: 2022 },
+  // ─── 2023 ───
+  { date: '2023-12-10', race: 'Europei di Cross (Bruxelles)', athlete: 'Vivien Bonzi', position: 60, note: '9a U23', year: 2023 },
+  { date: '2023-12-08', race: 'Monte Misma Xmas Trail 25km', athlete: 'Michele Merelli', position: 7, year: 2023 },
+  { date: '2023-12-08', race: 'Sri Chinmoy Winter Races 21km', athlete: 'Ilaria Bianchi', position: 1, note: '1a assoluta, 8 minuti di margine', podium: true, year: 2023 },
+  { date: '2023-11-26', race: 'Maratona di Firenze', athlete: 'Mirko Pulcini', position: 62, note: '2:44:09', year: 2023 },
+  { date: '2023-11-26', race: 'Milano21 10km', athlete: 'Beatrice Bianchi', position: 2, note: '2a donne', podium: true, year: 2023 },
+  { date: '2023-08-15', race: '9 Campanili (Porlezza)', athlete: 'Ilaria Bianchi', position: 1, note: '1a assoluta', podium: true, year: 2023 },
+  { date: '2023-08-18', race: 'Corri nei Borghi (Cerete) - Finale', athlete: 'Beatrice Bianchi', position: 1, note: '1a donne', podium: true, year: 2023 },
+  { date: '2023-08-18', race: 'Corri nei Borghi (Cerete) - Finale', athlete: 'Luca Magri', position: 2, podium: true, year: 2023 },
+  { date: '2023-08-20', race: 'San Fermo Trail 18km', athlete: 'Beatrice Bianchi', position: 1, note: '1a donne', podium: true, year: 2023 },
+  { date: '2023-08-12', race: 'Sierre-Zinal 31km', athlete: 'Alice Gaggi', position: 5, note: '5a donne', year: 2023 },
+  { date: '2023-08-13', race: 'Sgambada de Blum', athlete: 'Luca Magri', position: 1, note: '1° assoluto', podium: true, year: 2023 },
+  { date: '2023-08-13', race: 'Sgambada de Blum', athlete: 'Vivien Bonzi', position: 1, note: '1a donne', podium: true, year: 2023 },
+  { date: '2023-08-18', race: 'Costa de Corsa (Costa Imagna)', athlete: 'Ivan Angiolini', position: 1, note: '1° assoluto', podium: true, year: 2023 },
+];
+
+// Images from Google Sites archive (per year, 2-3 each)
+export const ARCHIVE_IMAGES = {
+  2018: [
+    { src: 'https://lh3.googleusercontent.com/sitesv/APaQ0SQBx4yBRWbR4BgPntabMT69EJS-ciBnNH_UvyxYQZLQlW2ROMEc_emLsFqzTbVkK4_v7DlE9ccys9Azdp2d5PyfPFpaE8M6QMGrd9jSd3h5SCSfJMIw5H3DTkeunzw5im1Ec9Q4-E6TsLzUG9WLAgc-avkGHVHJaRzMZX5NdvIyYcqDI5Tsl7Q4=w600', alt: '521 Vertical 2018' },
+    { src: 'https://lh3.googleusercontent.com/sitesv/APaQ0SRAcCHSXPtOX10xEp6s5RnhTcwhS72o9X1TX25-i5KuSZ_vaTkDn_naTJ9dA_fl-Req2L0T12vYikKr0Gsf4dZRg1ap9Kmt25cKTswzCWFL7l9khJ1sKySM8H9NowJr7L0TPGNAHtkK-Y92DuAg8OGzK2ISVnwVmUg=w600', alt: 'Trofeo Vanoni 2018' },
+  ],
+  2019: [
+    { src: 'https://lh3.googleusercontent.com/sitesv/APaQ0SSKawnBdjf08V-ubBWKLzA8HnZO6GUe4B5nHMvJ8ldLaDoMVOumqtxZDuWA9s2ZMAkDGHwXpeSC4YIwAt5AEkEGxSsXGzpOsY4LsCbfMkLq0yjC2QTemVN8Gv6uhGrpAD_XNKMM0E7RcNEUGMxj5LgZ1sz3Rrxi-YWBYuYEZOGWAx54cfIrFki2xTPiRWmnqC797FSxmYf6o7M=w600', alt: 'Maratona di Sanremo 2019 — Tiraboschi 1°' },
+    { src: 'https://lh3.googleusercontent.com/sitesv/APaQ0SQHIuPzKFh5WuJesHnBIBsVpRnmK2PMQu7AIRFclfRo7jtnhXdvM3ZTN3OurObdtoyuzhiGTkTVAbrfJl3YqeV0SxP49e0YlgQbnQucd24EZG1focK3EGo_MBm6SfQ9BmuzuF-8c02qj1RX5pHvVug4IVFMVCy5SJnYCVKHnUl3Xoo6-Ca4Tr-5x3c7d2WbfFTo-hS-X_6Jw70=w600', alt: 'Eliana Patelli campionessa italiana 2019' },
+    { src: 'https://lh3.googleusercontent.com/sitesv/APaQ0SR0TnCTR6ztcLX3-lf6cbxc0Kl3wR59c9okRViFKV7JAGMFqwOpx-uxsXqqGD6InH0ZWyOUY7JIJ4fE5HVXT9e_rwpW8pM_3fwWXeuTT_pGg48b4mZd4CIcAibaki3odt2Z8a3Fwc8yMyynwLyA__YDcYXLuEJQcPwU8NPOUX4-qQHe-I5p3eh4SBcwPUf4zE3q1HaeQniF=w600', alt: 'Trofeo Vanoni 2019' },
+  ],
+  2020: [
+    { src: 'https://lh3.googleusercontent.com/sitesv/APaQ0SRrhYfLHMi7vVjlluKOizOxyouz1kW8qgSlBuD8NGGqyH6nw9XjZgKaHvDoEFpSNBBzGaS1Y1c318J42PXx7mqP5MVZweefIb2g54H3fcgjuuQcuKGuHwmOQRedNM8eRXWS6Qj1oE7PfeUM6CUqzboz4j55h4Wu=w600', alt: 'Trofeo Vanoni 2020' },
+  ],
+  2021: [
+    { src: 'https://lh3.googleusercontent.com/sitesv/APaQ0STnVqRGw7KdsQGep2SsBMceF0oJIzO-PrzKEVvWguspFZcOOjZ-ZuFx7X0lyo7rxSB1imnnTClwmjVccD9lIJqKLCXxiLTaJtlZIjVaCTjacQQu87L20ZgG9tkwXcKQ7SpQwP7WSNyZwmx6hZPI3qbPOs-gCaZ14_Mixo-7sBjFG2FUomeSDQdluSQ0BlNMirmkYIRQTKxf5a2JOMTvVhbN0OdonJIdkjDL=w600', alt: 'Sierre-Zinal 2021 — Gaggi 10a' },
+    { src: 'https://lh3.googleusercontent.com/sitesv/APaQ0SRrgl0BxtoeNppdPICJ2JYrWYhVk-Rc8lcjgut0W50hN3hUyWnGJApNkrdUwqjOhr-Bd5ngerh7rEWdsgHTPGVA4TsFv63qToBbaoQ4GWaxc9h6MeZtR80KyHlxgt3ItQIRdNXHTYrehd7h_g2LjL2nBIUFXndFbC4w_tWDNe0_W6ljeGdVfJu2XobbkPqnS6ifZOd0glgGrltAzdmFk7h-svzd5gBYtC24=w600', alt: 'Piz Tri Vertical 2021' },
+    { src: 'https://lh3.googleusercontent.com/sitesv/APaQ0ST4mcrgKw1EWCUmCiNaSmteSwy3b-wb7vl1z5H6rlz0rhr-KJHWna220CEAVFzAyrvVeP_CU0_mcBTqWwmEupV1fzL7uMkRUwRrZRmbpD0mn_sYpFOIMRF1aIJqSQPrc8pRG3jAuKXc41m8euav0N0IqUDOBhzzhAPCa_rz-MjidyckeYb3EsqEgI7kEXXKtf3U7K8CQ5ZFJ96aBHYhWPnn1zi9pZxh8_YzUXY=w600', alt: 'Fletta Trail 2021' },
+  ],
+  2022: [
+    { src: 'https://lh3.googleusercontent.com/sitesv/APaQ0STtBhmIT_o4UpHg4mMTy-Bo7PtvWlQBLe6JZG174sUr8mzUfj7EBLrM0Ag4GZe8O7OsNC0giy9rRtoxdZSK9N9f061mAxz9IHYykFJ7X_6XYQY-tU5puAAelG0k5uzEHMo8ZTYhrF2k6HmkQR7eMzC7KBHKYsZNwmvcB0Z6WVe8qDZDaOT04KwfaLOugpqBnbw1g_P40ZA2FYDWPnOByyG37uTbdyEJym-WrcA=w600', alt: 'Maratona di Lanzarote 2022 — Brasi 2°' },
+    { src: 'https://lh3.googleusercontent.com/sitesv/APaQ0SRekVLwHcPh4BQ5rG5Cv1DCyMSLhajHnwqXwQWTZD2TBa-76gQYXeYpnC6lFBQnF5tuzsvE3ooEJ1HfKv1oVFTHiLIXhIYL9fL5Dgb64Nl8JRrTLdeI1OrJKu5kk0JsoAdgi8VzPA5TESCGRppsEbIwnwyPZMHajFRlS-1sz4aVnebB_VXGKyS83O5VL0bVtr_bMzHuXbf2ykBT6u0rW96bzQwhHWX2wrCR=w600', alt: 'Maratonina Lemine 2022 — Magri 1°' },
+    { src: 'https://lh3.googleusercontent.com/sitesv/APaQ0SS6yJeT2aWuzd5-a1HYAfaO-zNi-xLp8s-zC_Hen0mF2ZK7hopuLudZ4d0HMRbe_wyplWwsjtqcBWFJFV1bxt3kqZh6hSLdPL96-1mPQx89l7hE9p4Tk92PlZQL9FCmxCkP2y-7Y17S_OtuYVC1Myc89cI2M62XYIB1A3IoKiKiMIbEpK-Tbj7knwPBHB7D5Shivgsm7Nq8Z5FCEfOgcbbIu2JoQ5SqKPGKlxg=w600', alt: 'Restena Trail 2022 — Cassol 1°' },
+  ],
+  2023: [
+    { src: 'https://lh3.googleusercontent.com/sitesv/APaQ0SReUciG0iKth4z5wlNJBREXzxaLpxS5Yha_tg7mbVtOnBzLsjeyibuHurMYs5Wr6qLvbWn2-B7MVN1MUmEyPoDfE_0SyfrjQgmpORAkoWr9DkeLO-Eq7X1EZ_QKdKvKPTpfbomKAaHy6A29-PtP1FmbtJNFp-gl0Ox-evw0SW3p1bbrskA9STxqXOVbY63ozBr9xNoxFa3C1902HdIMoQzTPTEmtQpEwRKA=w600', alt: 'Monte Misma Xmas Trail 2023' },
+    { src: 'https://lh3.googleusercontent.com/sitesv/APaQ0SRCs-bmTpwO3Ho1FBCmgtxHdIVkMdjbw9RdRe3YuQVn561lO6rZxUVIuYFekKAPMVcOS-F56JRMpgFG61TdYFBdxh8GCdW1zVhdHH1YeCS_1G6dGBJnT8-Aj4FpkDnvbJ3In9b1MYrFsugt-VQMqBB_yFUs7J2qiNeNKyulC6sk-YdyDKRdbhCCc2-qVN0e3oqXDMDyQXNqcdTTQzEKjZdVeOIRm1T6kSrUs-Y=w600', alt: 'Sierre-Zinal 2023 — Gaggi 5a' },
+    { src: 'https://lh3.googleusercontent.com/sitesv/APaQ0SQgKeJbP9zmk8SjnutmSAjLnDxrJasbDdaPxMOOdnPQWTgM8BsGlr2JfRg4O15AjB6i5I-B0e9bM72eY4gWvrcT7GvgdRZZ6dqESgE5_lLuRTgMJJjNHt8so4XPNbd15Skq1T2NU6yUiulWUpCpbWQgi5D5-4gLiaULuyaSS7rCgH_Z9YnMDBrYZcidFNnCe8PD-kQ7PI2p0qE8MNJlyscWuce5f-SxRRxGHjE=w600', alt: 'Corri nei Borghi 2023 — Bianchi 1a' },
+  ],
+};
+
 // Disciplines the club covers
 export const DISCIPLINES = [
   { name: 'Corsa in Montagna', icon: '⛰️', desc: 'Classica, sola salita, vertical kilometer' },
