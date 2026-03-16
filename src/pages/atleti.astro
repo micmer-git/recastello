@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ATHLETES, RESULTS_2024, RESULTS_ARCHIVE, BADGE_TYPES, getAthleteResults } from '../data/site.js';
+const base = '/recastello';
+
+// Combine all results for counting
+const allResults = [...RESULTS_2024, ...RESULTS_ARCHIVE];
+
+// Enrich athletes with stats
+const enriched = ATHLETES.map(a => {
+  const results = allResults.filter(r => r.athlete.toLowerCase().includes(a.name.toLowerCase()));
+  const podiums = results.filter(r => r.podium);
+  const wins = results.filter(r => r.position === 1);
+  return { ...a, resultCount: results.length, podiumCount: podiums.length, winCount: wins.length };
+}).sort((a, b) => b.podiumCount - a.podiumCount || b.resultCount - a.resultCount);
+
+const totalAthletes = ATHLETES.length;
+const withBadges = ATHLETES.filter(a => a.badges && a.badges.length > 0).length;
+---
+
+<BaseLayout
+  title="Atleti — La Recastello"
+  description="Tutti gli atleti della ASD La Recastello. Cerca per nome, specialita o filtra per palmares."
+>
+
+  <!-- Hero -->
+  <section class="relative py-28 md:py-36 px-5 bg-brand-dark text-white overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/90 to-brand-green/20"></div>
+    <div class="relative z-10 max-w-4xl mx-auto text-center">
+      <p class="text-brand-green text-xs font-bold tracking-[0.25em] uppercase mb-4 reveal">Il Gruppo</p>
+      <h1 class="font-display text-[clamp(2.5rem,8vw,5rem)] font-bold leading-tight mb-6 reveal reveal-delay-1">
+        I Nostri Atleti
+      </h1>
+      <p class="text-white/60 text-lg max-w-xl mx-auto reveal reveal-delay-2">
+        {totalAthletes} atleti tesserati, {withBadges} con palmares di livello nazionale o internazionale.
+      </p>
+    </div>
+  </section>
+
+  <!-- Search + filters -->
+  <section class="py-6 px-5 bg-brand-cream border-b border-brand-dark/10 sticky top-16 z-30">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row gap-3">
+      <div class="relative flex-1">
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-dark/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="athletePageSearch" placeholder="Cerca per nome o specialita..."
+          class="w-full pl-11 pr-4 py-3 border-2 border-brand-dark/20 bg-white text-sm text-brand-dark placeholder:text-brand-dark/30 focus:border-brand-green focus:outline-none transition-colors" />
+      </div>
+      <div class="flex gap-2 overflow-x-auto pb-1">
+        <button class="badge-filter-btn px-3 py-2 text-[0.65rem] font-bold tracking-wider uppercase border-2 border-brand-green bg-brand-green text-white flex-shrink-0" data-filter="all">Tutti</button>
+        <button class="badge-filter-btn px-3 py-2 text-[0.65rem] font-bold tracking-wider uppercase border-2 border-brand-dark/20 bg-white text-brand-dark flex-shrink-0" data-filter="tricolore">🇮🇹 Tricolore</button>
+        <button class="badge-filter-btn px-3 py-2 text-[0.65rem] font-bold tracking-wider uppercase border-2 border-brand-dark/20 bg-white text-brand-dark flex-shrink-0" data-filter="mondiale">🌍 Mondiale</button>
+        <button class="badge-filter-btn px-3 py-2 text-[0.65rem] font-bold tracking-wider uppercase border-2 border-brand-dark/20 bg-white text-brand-dark flex-shrink-0" data-filter="azzurro">🔵 Azzurro</button>
+        <button class="badge-filter-btn px-3 py-2 text-[0.65rem] font-bold tracking-wider uppercase border-2 border-brand-dark/20 bg-white text-brand-dark flex-shrink-0" data-filter="vittoria">⭐ Vittorie</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Athletes grid -->
+  <section class="py-12 md:py-20 px-5">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="athletePageGrid">
+        {enriched.map((athlete, i) => {
+          const badges = athlete.badges || [];
+          const badgeTypes = badges.map(b => b.type).join(',');
+          return (
+            <a
+              href={`${base}/atleta/${athlete.id}/`}
+              class={`athlete-page-card block no-underline group bg-white border-2 border-brand-dark shadow-[4px_4px_0_#1A1A1A] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_#1A1A1A] transition-all overflow-hidden`}
+              data-name={athlete.name.toLowerCase()}
+              data-specialty={athlete.specialty.toLowerCase()}
+              data-badges={badgeTypes}
+            >
+              {/* Top bar with badges */}
+              <div class="h-3 flex">
+                {badges.slice(0, 6).map(b => {
+                  const bt = BADGE_TYPES[b.type];
+                  return bt ? <div class={`flex-1 ${bt.color}`}></div> : null;
+                })}
+                {badges.length === 0 && <div class="flex-1 bg-brand-dark/5"></div>}
+              </div>
+
+              <div class="p-5">
+                {/* Header */}
+                <div class="flex items-start gap-4 mb-3">
+                  <div class="w-12 h-12 bg-brand-green/15 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="font-cursive text-xl text-brand-green">{athlete.name.charAt(0)}</span>
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <h3 class="font-display text-base font-bold text-brand-dark group-hover:text-brand-green transition-colors truncate">{athlete.name}</h3>
+                    <p class="text-[0.65rem] text-brand-green font-bold tracking-wider uppercase">{athlete.specialty}</p>
+                  </div>
+                </div>
+
+                {/* Badge patches */}
+                {badges.length > 0 && (
+                  <div class="flex flex-wrap gap-1 mb-3">
+                    {badges.slice(0, 3).map(b => {
+                      const bt = BADGE_TYPES[b.type];
+                      return bt ? (
+                        <span class={`inline-flex items-center gap-0.5 ${bt.color} text-white text-[0.55rem] font-bold px-1.5 py-0.5`}>
+                          {bt.icon} {b.label.length > 25 ? b.label.slice(0, 25) + '...' : b.label}
+                        </span>
+                      ) : null;
+                    })}
+                    {badges.length > 3 && (
+                      <span class="bg-brand-dark/10 text-brand-dark/60 text-[0.55rem] font-bold px-1.5 py-0.5">+{badges.length - 3}</span>
+                    )}
+                  </div>
+                )}
+
+                {/* Stats bar */}
+                <div class="flex gap-4 pt-3 border-t border-brand-dark/5">
+                  <div class="text-center">
+                    <span class="font-display text-lg font-bold text-brand-dark">{athlete.resultCount}</span>
+                    <span class="block text-[0.55rem] text-brand-dark/40 uppercase tracking-wider">Gare</span>
+                  </div>
+                  <div class="text-center">
+                    <span class="font-display text-lg font-bold text-brand-green">{athlete.podiumCount}</span>
+                    <span class="block text-[0.55rem] text-brand-dark/40 uppercase tracking-wider">Podi</span>
+                  </div>
+                  <div class="text-center">
+                    <span class="font-display text-lg font-bold text-yellow-500">{athlete.winCount}</span>
+                    <span class="block text-[0.55rem] text-brand-dark/40 uppercase tracking-wider">Vittorie</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+
+      <p id="noResults" class="hidden text-center text-brand-dark/40 text-sm py-12 italic">Nessun atleta trovato.</p>
+    </div>
+  </section>
+
+  <!-- Back -->
+  <div class="text-center pb-16">
+    <a href={`${base}/`} class="inline-flex items-center gap-2 text-sm font-bold text-brand-green hover:underline">← Torna alla home</a>
+  </div>
+
+</BaseLayout>
+
+<script>
+  const searchInput = document.getElementById('athletePageSearch');
+  const grid = document.getElementById('athletePageGrid');
+  const noResults = document.getElementById('noResults');
+  let activeFilter = 'all';
+
+  function filterCards() {
+    const q = (searchInput?.value || '').toLowerCase().trim();
+    let visible = 0;
+    grid?.querySelectorAll('.athlete-page-card').forEach(card => {
+      const name = card.dataset.name || '';
+      const spec = card.dataset.specialty || '';
+      const badges = card.dataset.badges || '';
+      const matchText = !q || name.includes(q) || spec.includes(q);
+      const matchBadge = activeFilter === 'all' || badges.includes(activeFilter);
+      const show = matchText && matchBadge;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    if (noResults) noResults.classList.toggle('hidden', visible > 0);
+  }
+
+  searchInput?.addEventListener('input', filterCards);
+
+  document.querySelectorAll('.badge-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.badge-filter-btn').forEach(b => {
+        b.classList.remove('bg-brand-green', 'text-white', 'border-brand-green');
+        b.classList.add('bg-white', 'text-brand-dark', 'border-brand-dark/20');
+      });
+      btn.classList.add('bg-brand-green', 'text-white', 'border-brand-green');
+      btn.classList.remove('bg-white', 'text-brand-dark', 'border-brand-dark/20');
+      activeFilter = btn.dataset.filter || 'all';
+      filterCards();
+    });
+  });
+</script>
