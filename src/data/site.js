@@ -452,6 +452,9 @@ export const RESULTS_2024 = [
   { date: '2025-07-12', race: 'Campionati Mondiali (Galles)', athlete: 'Luca Magri', position: 1, note: '1° assoluto', podium: true },
   { date: '2025-07-12', race: 'Campionati Mondiali (Galles)', athlete: 'Beatrice Bianchi', position: 1, note: '1a assoluta', podium: true },
   // 2026
+  { date: '2026-02-22', race: 'Campionato Italiano Cross (Selinunte)', athlete: 'Isacco Costa', position: 11, note: '31:25 — 10km' },
+  { date: '2026-02-22', race: 'Campionato Italiano Cross (Selinunte)', athlete: 'Luca Magri', position: 16, note: '31:49 — 10km' },
+  { date: '2026-02-22', race: 'Campionato Italiano Cross (Selinunte)', athlete: 'Fabio Ruga', position: 95, note: '34:29 — SM45' },
   { date: '2026-03-14', race: '1a Civetta a Tòlech', athlete: 'Isacco Costa', position: 1, note: '1° assoluto 22\'22"', podium: true },
 ];
 

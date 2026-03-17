@@ -14,7 +14,7 @@
 
 const REPO_OWNER = 'micmer-git';
 const REPO_NAME = 'recastello';
-const KNOWHOW_REPO_OWNER = 'micmer';
+const KNOWHOW_REPO_OWNER = 'micmer-git';
 const KNOWHOW_REPO_NAME = 'recastello';
 const ALLOWED_ORIGINS = [
   'https://micmer-git.github.io',
