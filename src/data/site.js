@@ -451,6 +451,8 @@ export const RESULTS_2024 = [
   { date: '2025-06-15', race: 'Campionato Italiano Staffetta (Casnigo)', athlete: 'Bianchi-Gaggi', position: 1, note: 'Staffetta donne oro', podium: true },
   { date: '2025-07-12', race: 'Campionati Mondiali (Galles)', athlete: 'Luca Magri', position: 1, note: '1° assoluto', podium: true },
   { date: '2025-07-12', race: 'Campionati Mondiali (Galles)', athlete: 'Beatrice Bianchi', position: 1, note: '1a assoluta', podium: true },
+  // 2026
+  { date: '2026-03-14', race: '1a Civetta a Tòlech', athlete: 'Isacco Costa', position: 1, note: '1° assoluto 22\'22"', podium: true },
 ];
 
 export function getAthleteResults(athleteName) {
@@ -574,9 +576,17 @@ export const BLOG_POSTS = [
     slug: '2026-03-16-domenica-sportiva',
     title: 'La Domenica Sportiva — 16 Marzo 2026',
     date: '2026-03-16',
-    intro: 'Tre gare, un crescendo. Michele Merelli apre il mese nel fango della campestre bergamasca, risale sul podio nella corsa su strada, e chiude con la vittoria a Gromo — undici ore di trail nella neve della Val Seriana. "Top", dice lui. E ha ragione. Nel frattempo, il Trail del Resegone e un test pre-Peket completano il quadro di un weekend verde Recastello.',
+    intro: 'Settimana di vittorie verdi. Isacco Costa domina la prima edizione della Civetta a Tolech sulle Dolomiti zoldane. Michele Merelli chiude un crescendo perfetto: dal fango della campestre al podio su strada, fino alla vittoria nel trail di Gromo. E poi il Resegone, il test pre-Peket — la Recastello sta preparando qualcosa di grosso per il 25 aprile.',
     image: '/recastello/img/blog/2026-03-16.png',
     results: [
+      {
+        athlete: 'Isacco Costa',
+        athleteId: 'isacco-costa',
+        race: '1a Civetta a Tòlech',
+        location: 'Zoldo (BL)',
+        text: 'Il campione italiano di corsa in montagna non si ferma. Isacco Costa vince la prima edizione assoluta della Civetta a Tolech — gara serale con le fiaccole sulle Dolomiti zoldane, partenza al tramonto e arrivo sotto le stelle. 22 minuti e 22 secondi di salita pura verso la cima, nel cuore del territorio ladino dove le montagne hanno nomi che suonano come preghiere. Una vittoria che conferma lo stato di forma eccezionale del due volte campione italiano in vista del Memorial Peket del 25 aprile.',
+        position: 1,
+      },
       {
         athlete: 'Michele Merelli',
         athleteId: 'michele-merelli',

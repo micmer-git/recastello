@@ -239,7 +239,7 @@ const html = `<!DOCTYPE html>
     <div class="header-row">
       <div>
         <div class="tag">La Domenica Sportiva</div>
-        <div class="title">Guerrieri del Fango</div>
+        <div class="title">Settimana di Vittorie</div>
       </div>
       <div class="date-badge">
         <span class="day">16</span>
@@ -248,22 +248,22 @@ const html = `<!DOCTYPE html>
     </div>
 
     <div class="quote-section">
-      <div class="quote-text">"Top" — Michele Merelli vince a Gromo dopo 11 ore di trail nella neve</div>
-      <div class="quote-attr">— Tre gare, un crescendo: 10° campestre → 3° strada → 1° trail</div>
+      <div class="quote-text">Costa domina la Civetta a Tòlech. Merelli: dal fango al podio al trionfo.</div>
+      <div class="quote-attr">— 3 vittorie verdi + 2 podi in una settimana sola</div>
     </div>
 
     <div class="results">
       <div class="result-card gold">
         <div class="result-pos pos-gold">1</div>
-        <div class="result-name">Michele Merelli</div>
-        <div class="result-race">Trail di Gromo</div>
-        <div class="result-loc">11h — "Top"</div>
+        <div class="result-name">Isacco Costa</div>
+        <div class="result-race">Civetta a Tòlech</div>
+        <div class="result-loc">Zoldo (BL) — 22'22"</div>
       </div>
       <div class="result-card gold">
         <div class="result-pos pos-gold">1</div>
-        <div class="result-name">Isacco Costa</div>
-        <div class="result-race">Test Gazzaniga-Orezzo</div>
-        <div class="result-loc">Pre-Memorial Peket</div>
+        <div class="result-name">Michele Merelli</div>
+        <div class="result-race">Trail di Gromo</div>
+        <div class="result-loc">"Top" — 11h</div>
       </div>
       <div class="result-card bronze">
         <div class="result-pos pos-bronze">3</div>
