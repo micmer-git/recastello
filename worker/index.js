@@ -31,7 +31,7 @@ function corsHeaders(origin) {
 // Secret: CALLMEBOT_APIKEY (set after Martina activates the bot)
 async function notifyWhatsApp(env, text) {
   if (!env.CALLMEBOT_APIKEY) return; // skip if not configured yet
-  const phone = '393489983632';
+  const phone = '+393489983632';
   const encoded = encodeURIComponent(text);
   try {
     await fetch(
