@@ -26,6 +26,20 @@ function corsHeaders(origin) {
   };
 }
 
+// WhatsApp notification via CallMeBot (free, requires one-time activation)
+// Martina's number: 3489983632 (IT +39)
+// Secret: CALLMEBOT_APIKEY (set after Martina activates the bot)
+async function notifyWhatsApp(env, text) {
+  if (!env.CALLMEBOT_APIKEY) return; // skip if not configured yet
+  const phone = '393489983632';
+  const encoded = encodeURIComponent(text);
+  try {
+    await fetch(
+      `https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${encoded}&apikey=${env.CALLMEBOT_APIKEY}`
+    );
+  } catch (e) { /* best effort */ }
+}
+
 // Upload a base64 image to the repo, return the raw URL
 async function uploadImage(env, filename, base64Data) {
   const path = `submissions/photos/${filename}`;
@@ -154,6 +168,30 @@ export default {
       }
 
       const issue = await ghResponse.json();
+
+      // WhatsApp notification to Martina (best-effort, non-blocking)
+      if (type === 'risultato') {
+        const waMsg = `🏃 NUOVO RISULTATO — La Recastello\n\n`
+          + `Atleta: ${data.nome || ''} ${data.cognome || ''}\n`
+          + `Gara: ${data.gara || ''}\n`
+          + `Luogo: ${data.luogo || ''}\n`
+          + `Data: ${data.data || ''}\n`
+          + `Posizione: ${data.posizione || 'n/a'}\n`
+          + `Tempo: ${data.tempo || 'n/a'}\n`
+          + (data.instagram ? `IG: @${data.instagram}\n` : '')
+          + `\nRacconto: ${data.racconto || '-'}\n`
+          + `\n📋 Issue: ${issue.html_url}`
+          + (photoEntries.length > 0 ? `\n📸 ${photoEntries.length} foto allegate` : '');
+        notifyWhatsApp(env, waMsg);
+      } else {
+        const waMsg = `📩 NUOVO CONTATTO — La Recastello\n\n`
+          + `Da: ${data.nome || ''} ${data.cognome || ''}\n`
+          + `Email: ${data.email || ''}\n`
+          + `Oggetto: ${data.oggetto || ''}\n`
+          + `\nMessaggio: ${data.messaggio || '-'}\n`
+          + `\n📋 Issue: ${issue.html_url}`;
+        notifyWhatsApp(env, waMsg);
+      }
 
       // Upload photos after issue creation (non-blocking, best-effort)
       let uploadedPhotos = 0;
