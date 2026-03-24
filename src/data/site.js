@@ -576,6 +576,54 @@ export const DISCIPLINES = [
 // "La Domenica Sportiva" blog posts — generated weekly from athlete submissions
 export const BLOG_POSTS = [
   {
+    slug: '2026-03-23-domenica-sportiva',
+    title: 'La Domenica Sportiva — 23 Marzo 2026',
+    date: '2026-03-23',
+    intro: 'Tre vittorie su quattro categorie alla Sky del Canto di Carvico, apertura della Coppa Italia FISky 2026. Luca Magri e Vivien Bonzi dominano il lungo, Isacco Costa chiude secondo a 4 minuti. Claudia Previtali oro Youth B. La Recastello apre la stagione skyrunning come ha chiuso quella della montagna: comandando.',
+    results: [
+      {
+        athlete: 'Luca Magri',
+        athleteId: 'luca-magri',
+        race: 'Sky del Canto — Long Course (22km, 1280m D+)',
+        location: 'Carvico (BG)',
+        text: 'Il campione del mondo non ha bisogno di presentazioni, ma ogni tanto le rinnova lo stesso. Luca Magri vince la prima tappa della Coppa Italia FISky 2026 con 1h38\'52" — quasi cinque minuti sul secondo. Ventidue chilometri e milleduecento metri di dislivello sui sentieri sopra Carvico, tra il Monte Canto e la pianura bergamasca. Una dichiarazione d\'intenti: la stagione dello skyrunning inizia in verde.',
+        position: 1,
+      },
+      {
+        athlete: 'Isacco Costa',
+        athleteId: 'isacco-costa',
+        race: 'Sky del Canto — Long Course (22km, 1280m D+)',
+        location: 'Carvico (BG)',
+        text: 'Secondo assoluto con 1h43\'00", il campione italiano di corsa in montagna conferma che le gambe ci sono anche sulle distanze sky. Doppietta Recastello sul podio maschile — un messaggio chiaro a tutta la concorrenza. Costa e Magri davanti a 460 partecipanti, come ai tempi del Gazzaniga-Orezzo ma con il doppio del dislivello.',
+        position: 2,
+      },
+      {
+        athlete: 'Vivien Bonzi',
+        athleteId: 'vivien-bonzi',
+        race: 'Sky del Canto — Long Course (22km, 1280m D+)',
+        location: 'Carvico (BG)',
+        text: 'La campionessa italiana di vertical si prende anche lo skyrunning. Vivien Bonzi vince la gara femminile con 1h56\'52" — ventinove secondi davanti a Elisa Desco, che non e esattamente una sconosciuta. Una vittoria di sostanza, costruita salita dopo salita, nel modo in cui solo chi viene dalla montagna vera sa fare.',
+        position: 1,
+      },
+      {
+        athlete: 'Beatrice Bianchi',
+        athleteId: 'beatrice-bianchi',
+        race: 'Sky del Canto — Long Course (22km, 1280m D+)',
+        location: 'Carvico (BG)',
+        text: 'Quinta tra le donne nella prima uscita sky della stagione. La campionessa del mondo di corsa in montagna sta accumulando chilometri e dislivello in vista degli appuntamenti internazionali. Quinta oggi, ma con l\'aria di chi sta ancora scaldando il motore.',
+        position: 5,
+      },
+      {
+        athlete: 'Claudia Previtali',
+        athleteId: 'claudia-previtali',
+        race: 'Sky del Canto — Short Course (13km, 700m D+)',
+        location: 'Carvico (BG)',
+        text: 'Oro nella categoria Youth B femminile con 1h13\'14" sul percorso corto da tredici chilometri. La gara valeva come qualificazione per i Mondiali Giovanili di Makarska, Croazia (8-10 maggio). Il vivaio verde continua a produrre campionesse — la tradizione della Recastello non si ferma al roster elite.',
+        position: 1,
+      },
+    ],
+  },
+  {
     slug: '2026-03-16-domenica-sportiva',
     title: 'La Domenica Sportiva — 16 Marzo 2026',
     date: '2026-03-16',
