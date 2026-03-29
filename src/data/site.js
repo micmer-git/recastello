@@ -456,6 +456,7 @@ export const RESULTS_2024 = [
   { date: '2026-02-22', race: 'Campionato Italiano Cross (Selinunte)', athlete: 'Luca Magri', position: 16, note: '31:49 — 10km' },
   { date: '2026-02-22', race: 'Campionato Italiano Cross (Selinunte)', athlete: 'Fabio Ruga', position: 95, note: '34:29 — SM45' },
   { date: '2026-03-14', race: '1a Civetta a Tòlech', athlete: 'Isacco Costa', position: 1, note: '1° assoluto 22\'22"', podium: true },
+  { date: '2026-03-29', race: 'Traversata dei Colli Euganei (42km)', athlete: 'Roberto Cassol', position: 2, note: '2° assoluto 3:46:12', podium: true, sourceUrl: 'https://egs-eventi.s3.amazonaws.com/00000000/00100000/00100100/00100143/results/pdf/604681_89U6FT4Q7P.pdf' },
 ];
 
 export function getAthleteResults(athleteName) {
@@ -469,8 +470,35 @@ export function getAllResultAthletes() {
   return names.sort();
 }
 
-// Archive results 2018-2023 — scraped from Google Sites archivio-articoli
+// Archive results 2012-2023 — scraped from Google Sites, corsainmontagna.it, FIDAL.it, larecastello.com
 export const RESULTS_ARCHIVE = [
+  // ─── 2012 ───
+  { date: '2012-06-17', race: 'Campionato Regionale Montagna Lunghe Distanze (Vendrogno)', athlete: 'Tyar Abdelhadi', position: 1, note: 'Campione Regionale', podium: true, year: 2012 },
+  { date: '2012-06-17', race: 'Campionato Regionale Montagna Lunghe Distanze (Vendrogno)', athlete: 'Roberto Berizzi', position: 1, note: '1° Master 50', podium: true, year: 2012 },
+  { date: '2012-06-17', race: 'Campionato Regionale Montagna Lunghe Distanze (Vendrogno)', athlete: 'Antonio Baroni', position: 1, note: '1° Master 60', podium: true, year: 2012 },
+  { date: '2012-09-23', race: 'Valgandino Vertical (2a edizione)', athlete: 'Danilo Bosio', position: 1, note: '1° assoluto', podium: true, year: 2012 },
+  { date: '2012-09-23', race: 'Valgandino Vertical (2a edizione)', athlete: 'Samantha Galassi', position: 1, note: '1a donne', podium: true, year: 2012 },
+  { date: '2012-10-28', race: 'Trofeo Vanoni (55a edizione)', athlete: 'Piana-Bosio-Ruga', position: 4, note: 'Staffetta maschile', year: 2012 },
+  // ─── 2013 ───
+  { date: '2013-07-14', race: 'Campionato Europeo Montagna (squadre)', athlete: 'Samantha Galassi', position: 1, note: 'Oro a squadre con la Nazionale', podium: true, year: 2013 },
+  { date: '2013-09-15', race: 'Campionato Mondiale Montagna (Krynica-Zdroj, Polonia)', athlete: 'Samantha Galassi', position: 15, note: '15a individuale, Oro a squadre', year: 2013 },
+  // ─── 2015 ───
+  { date: '2015-07-18', race: 'Campionato Italiano Vertical (Malonno, Piz Tri)', athlete: 'Samantha Galassi', position: 1, note: 'Campionessa Italiana Vertical', podium: true, year: 2015 },
+  { date: '2015-07-18', race: 'Campionato Italiano Vertical (Malonno, Piz Tri)', athlete: 'Squadra femminile', position: 1, note: 'Campionesse italiane a squadre', podium: true, year: 2015 },
+  { date: '2015-08-02', race: 'Campionato Italiano Montagna Individuale (Panarotta)', athlete: 'Samantha Galassi', position: 3, note: 'Bronzo individuale', podium: true, year: 2015 },
+  { date: '2015-08-30', race: 'Campionato Italiano Staffetta Montagna (Pian delle Betulle)', athlete: 'Galassi-Bianchi', position: 1, note: 'Campionesse Italiane Staffetta 1h10:40', podium: true, year: 2015 },
+  { date: '2015-08-30', race: 'Campionato Italiano Staffetta Montagna (Pian delle Betulle)', athlete: 'Bassanelli-Merelli GM', position: 1, note: 'Oro Master C', podium: true, year: 2015 },
+  { date: '2015-07-05', race: 'Campionato Europeo Montagna (Porto Moniz, Madeira)', athlete: 'Samantha Galassi', position: 15, note: 'Nazionale Azzurra', year: 2015 },
+  // ─── 2016 ───
+  { date: '2016-07-10', race: 'Campionato Europeo Montagna (Arco)', athlete: 'Alice Gaggi', position: 2, note: 'Argento individuale, Oro a squadre', podium: true, year: 2016 },
+  { date: '2016-09-11', race: 'Campionato Mondiale Montagna (Bulgaria)', athlete: 'Alice Gaggi', position: 7, note: '7a individuale, Oro a squadre', year: 2016 },
+  { date: '2016-06-18', race: 'Campionato Italiano Staffetta Montagna (Casette di Massa)', athlete: 'Galassi-Gaggi', position: 1, note: 'Campionesse Italiane Staffetta', podium: true, year: 2016 },
+  { date: '2016-06-18', race: 'Campionato Italiano Staffetta Montagna (Casette di Massa)', athlete: 'Piana-Della Torre-Poli', position: 3, note: 'Bronzo staffetta uomini', podium: true, year: 2016 },
+  { date: '2016-06-05', race: 'Campionato Italiano Montagna Individuale (Lanzada)', athlete: 'Alice Gaggi', position: 4, note: '3a italiana valida per titolo', year: 2016 },
+  { date: '2016-05-15', race: 'Campionato Italiano Lunghe Distanze (Casto)', athlete: 'Alice Gaggi', position: 3, note: 'Bronzo lunghe distanze', podium: true, year: 2016 },
+  // ─── 2017 ───
+  { date: '2017-10-22', race: 'Trofeo Vanoni (60a ed.) — Camp. Italiano Staffetta', athlete: 'Galassi-Gaggi', position: 1, note: 'Campionesse Italiane Staffetta 46:16', podium: true, year: 2017 },
+  { date: '2017-10-22', race: 'Trofeo Vanoni (60a ed.) — Camp. Italiano Staffetta', athlete: 'Toninelli-Magri-Della Torre', position: 3, note: 'Bronzo staffetta uomini 1h30:47', podium: true, year: 2017 },
   // ─── 2018 ───
   { date: '2018-10-14', race: '521 Vertical', athlete: 'Pietro Lenzi', position: 1, note: '1° assoluto', podium: true, year: 2018 },
   { date: '2018-10-14', race: '521 Vertical', athlete: 'Samantha Galassi', position: 1, note: '1a donne, 5a vittoria in 6 edizioni', podium: true, year: 2018 },
@@ -492,6 +520,9 @@ export const RESULTS_ARCHIVE = [
   { date: '2019-11-04', race: 'Crema 10km', athlete: 'Luca Magri', position: 1, note: '1° assoluto 30:33', podium: true, year: 2019 },
   { date: '2019-10-28', race: 'Selvino Cronoday', athlete: 'Fabio Bazzana', position: 1, note: '1° assoluto', podium: true, year: 2019 },
   { date: '2019-10-28', race: 'Trofeo Vanoni', athlete: 'Alice Gaggi', position: 9, year: 2019 },
+  { date: '2019-10-13', race: 'This Is Vertical Race (Valgoglio, Camp. Italiano FISky)', athlete: 'Fabio Pasini', position: 1, note: 'Campione Italiano Vertical FISky 35:41', podium: true, year: 2019 },
+  { date: '2019-10-13', race: 'This Is Vertical Race (Valgoglio, Camp. Italiano FISky)', athlete: 'Samantha Galassi', position: 1, note: 'Campionessa Italiana Vertical FISky 47:44', podium: true, year: 2019 },
+  { date: '2018-05-27', race: 'Campionato Italiano Staffetta Montagna (Arco)', athlete: 'Galassi-Gaggi', position: 1, note: 'Campionesse Italiane Staffetta — 3° titolo consecutivo', podium: true, year: 2018 },
   // ─── 2020 ───
   { date: '2020-10-25', race: 'Trofeo Vanoni (63a edizione)', athlete: 'Staffetta maschile', position: 7, note: 'Cassol-Cassol-Bacchion 1:36:39', year: 2020 },
   { date: '2020-10-25', race: 'Trofeo Vanoni Master A', athlete: 'Ruga-Beltrami-Lanfranchi', position: 2, podium: true, year: 2020 },
@@ -575,6 +606,23 @@ export const DISCIPLINES = [
 
 // "La Domenica Sportiva" blog posts — generated weekly from athlete submissions
 export const BLOG_POSTS = [
+  {
+    slug: '2026-03-29-domenica-sportiva',
+    title: 'La Domenica Sportiva — 29 Marzo 2026',
+    date: '2026-03-29',
+    intro: 'Roberto Cassol sale sul secondo gradino del podio assoluto alla Traversata dei Colli Euganei, 42 chilometri di trail tra le colline padovane. Secondo dietro solo a Diego Angella, con un distacco di meno di cinque minuti su un percorso lungo e selettivo. La Recastello conferma di saper fare male anche lontano dalle Orobie.',
+    results: [
+      {
+        athlete: 'Roberto Cassol',
+        athleteId: 'roberto-cassol',
+        race: 'Traversata dei Colli Euganei (42km)',
+        location: 'Carbonara (PD)',
+        text: 'Quarantadue chilometri sui Colli Euganei — non proprio i sentieri di casa, ma Roberto Cassol ci corre come se lo fossero. Secondo assoluto in 3:46:12, a meno di cinque minuti dal vincitore Diego Angella. Una gara lunga, tecnica, con il caldo padano che in marzo non ti aspetti. Cassol ha gestito la distanza con la testa di chi ha gia vinto trail importanti, tenendo il ritmo alto dal primo all\'ultimo colle. Davanti a lui solo Angella; dietro, il vuoto — sei minuti sul terzo. Il trail runner di Gazzaniga porta un podio pesante alla societa, dimostrando che la maglia verde non conosce confini regionali.',
+        position: 2,
+        sourceUrl: 'https://egs-eventi.s3.amazonaws.com/00000000/00100000/00100100/00100143/results/pdf/604681_89U6FT4Q7P.pdf',
+      },
+    ],
+  },
   {
     slug: '2026-03-23-domenica-sportiva',
     title: 'La Domenica Sportiva — 23 Marzo 2026',
@@ -696,6 +744,80 @@ export function getBlogPost(slug) {
   return BLOG_POSTS.find(p => p.slug === slug);
 }
 
+// Poieto Race — Memorial Pietro Lanfranchi "Pekèt"
+export const POIETO_RACE = {
+  name: 'La Corsa del Poieto',
+  fullName: 'Memorial Pietro Lanfranchi "Pekèt"',
+  subtitle: 'Gazzaniga — Monte Poieto',
+  discipline: 'Corsa in Montagna — Sola Salita',
+  firstEdition: 2003,
+  description: 'La gara di casa della Recastello. Una corsa di sola salita che parte dal centro di Gazzaniga e risale la Valle Seriana fino alla vetta del Monte Poieto (1360m), attraversando i sentieri che generazioni di corridori verdi hanno percorso in allenamento. Dal 2022 il percorso e anche sede del Campionato Italiano di Corsa in Montagna.',
+  routes: [
+    {
+      name: 'Percorso Senior',
+      file: '/recastello/gpx/percorso_senior.gpx',
+      distance: '12.4 km',
+      elevation: '920 m D+',
+      startAlt: 388,
+      endAlt: 1335,
+      description: 'Da Piazza S. Ippolito, Gazzaniga fino alla vetta del Monte Poieto. Percorso per Promesse, Seniores e Master fino a 55 anni.',
+      color: '#00A651',
+    },
+    {
+      name: 'Percorso Junior',
+      file: '/recastello/gpx/percorso_junior.gpx',
+      distance: '5.0 km',
+      elevation: '620 m D+',
+      startAlt: 686,
+      endAlt: 1301,
+      description: 'Dalle ex scuole di Orezzo fino alla vetta. Percorso per Juniores e Master 60+.',
+      color: '#1A1A1A',
+    },
+  ],
+  mapCenter: [45.8040, 9.8080],
+  mapZoom: 13,
+  highlights: [
+    'Prova di selezione per i Campionati Europei',
+    'Sede del Campionato Italiano Montagna 2022',
+    'Organizzata con GS Orezzo, Pro Loco Gazzaniga-Orezzo e Gruppo A.N.A. Gazzaniga',
+    'Terzo tempo con docce, pranzo e premiazioni alle ex scuole di Orezzo',
+  ],
+};
+
+// YouTube videos — Recastello race footage
+export const VIDEOS = [
+  {
+    id: 'b2nIIkCWqKU',
+    title: 'La Mezza sul Serio 2016',
+    description: 'Parte da Colzate — gara su strada lungo la Valle Seriana',
+    year: 2016,
+  },
+  {
+    id: 'dVpuZoV4Fjs',
+    title: 'La Corsa del Settantesimo — Mountain Running',
+    description: 'La Recastello presenta la Corsa del 70° anniversario, Campionato Italiano di Montagna 2022',
+    year: 2022,
+  },
+  {
+    id: 'Ae4Y91V1LZ0',
+    title: 'Recastello Due Volte Tricolore a Casnigo',
+    description: 'Corsa in montagna — doppio titolo italiano individuale e a squadre',
+    year: 2024,
+  },
+  {
+    id: 'qBjTLd5pcMQ',
+    title: 'Successo Recastello agli Italiani di Borno',
+    description: 'Corsa in montagna — vittoria ai Campionati Italiani di Borno',
+    year: 2023,
+  },
+  {
+    id: 'V8M9sdxABJ4',
+    title: 'La Corsa del Settantesimo — Il Percorso',
+    description: 'Preview del percorso di gara sul Monte Poieto per la Corsa del 70° anniversario',
+    year: 2022,
+  },
+];
+
 // Club history milestones
 export const STORIA_MILESTONES = [
   { year: 1952, title: 'Fondazione', text: 'Un gruppo di appassionati di montagna fonda la societa a Gazzaniga, nel cuore della Valle Seriana. Il primo nome: Gruppo Sportivo La Recastello.' },
@@ -704,7 +826,11 @@ export const STORIA_MILESTONES = [
   { year: 1980, title: 'Sezione sci alpino', text: 'Nasce la sezione sci alpino, ampliando la vocazione multisportiva della societa. Gare regionali e vivaio giovanile in pista.' },
   { year: 1995, title: 'Radici Group title sponsor', text: 'La partnership con Radici Group segna una svolta: il club diventa ASD La Recastello Radici Group, con risorse per il vivaio e le trasferte internazionali.' },
   { year: 2003, title: 'Memorial Peket', text: 'Prima edizione del Memorial Pietro Lanfranchi "Peket", la gara di sola salita Gazzaniga-Monte Poieto che diventa la gara di casa della societa.' },
-  { year: 2018, title: 'Successi internazionali', text: 'Eliana Patelli campionessa italiana maratona SF40, Ilaria Bianchi vice campionessa KV. La Recastello si afferma anche su distanze lunghe e su pista.' },
+  { year: 2012, title: 'Dominio regionale', text: 'Tyar Abdelhadi campione regionale montagna lunghe distanze. Danilo Bosio e Samantha Galassi vincono la Valgandino Vertical. Il vivaio produce campioni.' },
+  { year: 2015, title: 'Galassi campionessa italiana', text: 'Samantha Galassi campionessa italiana Vertical a Malonno e bronzo individuale alla Panarotta. Con Ilaria Bianchi vince la staffetta a Pian delle Betulle. La Recastello e ai vertici nazionali.' },
+  { year: 2016, title: 'Gaggi argento europeo', text: 'Alice Gaggi conquista l\'argento individuale e l\'oro a squadre agli Europei di Arco. In Bulgaria chiude 7a al Mondiale con oro a squadre. Gaggi-Galassi campionesse italiane staffetta.' },
+  { year: 2017, title: 'Tris Vanoni', text: 'Terzo titolo italiano consecutivo di staffetta femminile con Galassi-Gaggi al Trofeo Vanoni di Morbegno. Luca Magri e Isacco Costa emergono nel vivaio.' },
+  { year: 2018, title: 'Successi internazionali', text: 'Quarto titolo italiano staffetta consecutivo (Galassi-Gaggi ad Arco). Eliana Patelli campionessa italiana maratona SF40, Ilaria Bianchi vice campionessa KV.' },
   { year: 2024, title: 'Triplete ai campionati italiani', text: 'Isacco Costa e Vivien Bonzi campioni italiani assoluti a Casnigo. La societa vince il titolo individuale, la staffetta e il campionato di societa.' },
   { year: 2025, title: 'Ori mondiali in Galles', text: 'Luca Magri e Beatrice Bianchi campioni del mondo in Galles. Andrea Elia campione italiano sola salita e vertical. La stagione piu vincente di sempre.' },
 ];
