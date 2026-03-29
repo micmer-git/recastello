@@ -39,7 +39,7 @@ const years = [...new Set(allResults.map(r => r.date.slice(0, 4)))].sort((a, b) 
 
 <BaseLayout
   title="Risultati — La Recastello"
-  description="Archivio completo dei risultati sportivi della ASD La Recastello. Gare, podi e vittorie dal 2018 ad oggi."
+  description="Archivio completo dei risultati sportivi della ASD La Recastello. Gare, podi e vittorie dal 2012 ad oggi."
 >
 
   <!-- Hero -->
@@ -124,9 +124,18 @@ const years = [...new Set(allResults.map(r => r.date.slice(0, 4)))].sort((a, b) 
                     if (!byRace.has(r.race)) byRace.set(r.race, []);
                     byRace.get(r.race).push(r);
                   }
-                  return [...byRace.entries()].map(([race, raceResults]) => (
+                  return [...byRace.entries()].map(([race, raceResults]) => {
+                    const sourceUrl = raceResults.find(r => r.sourceUrl)?.sourceUrl;
+                    return (
                     <div class="mb-4 last:mb-0">
-                      <h3 class="font-display text-base font-bold text-brand-dark mb-2">{race}</h3>
+                      {sourceUrl ? (
+                        <a href={sourceUrl} target="_blank" rel="noopener noreferrer" class="font-display text-base font-bold text-brand-dark mb-2 block hover:text-brand-green transition-colors group">
+                          {race}
+                          <svg class="inline-block w-3.5 h-3.5 ml-1.5 opacity-0 group-hover:opacity-60 transition-opacity -translate-y-px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                      ) : (
+                        <h3 class="font-display text-base font-bold text-brand-dark mb-2">{race}</h3>
+                      )}
                       <div class="space-y-1.5">
                         {raceResults.sort((a, b) => a.position - b.position).map(r => {
                           const athlete = athleteById.get(r.athlete.toLowerCase());
@@ -155,7 +164,7 @@ const years = [...new Set(allResults.map(r => r.date.slice(0, 4)))].sort((a, b) 
                         })}
                       </div>
                     </div>
-                  ));
+                  )});
                 })()}
               </div>
             </div>
